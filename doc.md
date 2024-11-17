@@ -10,8 +10,3 @@
 
 
 - Cấu hình DB trong file commons/env.php
-	- tạo db đầu tiên: đúng tên bảng, tên trường dữ liệu 
-	- kết nối với db 
-	- sửa BASE_URL trước ở nhà: copy path của index
-	- tạo ctrler: tạo hết các phương thức: SVmodel, __construct, listSV, formAdd, postAdd, formUpdate, update, delete
-	- require, chỉnh rout ở file index
