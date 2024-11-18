@@ -2,6 +2,6 @@
 
 class DashboardController {
     public function index() {
-        require_once "./views/dashboard.php";
+        require_once "./views/db.php";
     }
 }

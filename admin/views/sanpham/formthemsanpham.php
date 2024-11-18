@@ -7,7 +7,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Them san pham | NN Shop</title>
+    <title>Thêm Sản Phẩm | PRIME Shop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -50,7 +50,7 @@
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
-                                        <li class="breadcrumb-item active">Tai khoan quan tri</li>
+                                        <li class="breadcrumb-item active">Tài khoản quản trị</li>
                                     </ol>
                                 </div>
 
@@ -64,7 +64,7 @@
                             <div class="h-100">
                             <div class="card">
                                 <div class="card-header align-items-center d-flex">
-                                    <h4 class="card-title mb-0 flex-grow-1">Form Them san pham </h4>
+                                    <h4 class="card-title mb-0 flex-grow-1">Form thêm sản phẩm </h4>
                                   
                                 </div><!-- end card header -->
 
@@ -78,7 +78,7 @@
                                                 <!--end col-->
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="emailidInput" class="form-label">Ten san pham </label>
+                                                        <label for="emailidInput" class="form-label">Tên sản phẩm </label>
                                                         <input type="text" class="form-control" placeholder="" name="ten_san_pham">
                                                         <span class="text-danger">
                                                             <?= !empty($_SESSION['error']['ten_san_pham']) ? $_SESSION['error']['ten_san_pham'] : '' ?>
@@ -89,7 +89,7 @@
 
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="emailidInput" class="form-label">Anh san pham </label>
+                                                        <label for="emailidInput" class="form-label">Ảnh sản phẩm </label>
                                                         <input type="file" class="form-control"  name="hinh_anh">
                                                         <span class="text-danger">
                                                             <?= !empty($_SESSION['error']['hinh_anh']) ? $_SESSION['error']['hinh_anh'] : '' ?>
@@ -99,18 +99,18 @@
                                                 </div>
                                                 <!--end col-->
 
-                                                <div class="col-md-6">
+                                                <!-- <div class="col-md-6">
                                                     <div class="mb-3">
                                                         <label for="emailidInput" class="form-label">Abum anh san pham </label>
                                                         <input type="file" class="form-control"  name="img_array[]" multiple >
                                                         
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <!--end col-->
 
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="emailidInput" class="form-label">Gia nhap</label>
+                                                        <label for="emailidInput" class="form-label">Giá nhập</label>
                                                         <input type="number" class="form-control" placeholder="" name="gia_nhap">
                                                         <span class="text-danger">
                                                             <?= !empty($_SESSION['error']['gia_nhap']) ? $_SESSION['error']['gia_nhap'] : '' ?>
@@ -120,7 +120,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="emailidInput" class="form-label">Gia ban </label>
+                                                        <label for="emailidInput" class="form-label">Giá bán</label>
                                                         <input type="number" class="form-control"  name="gia_ban">
                                                         <span class="text-danger">
                                                             <?= !empty($_SESSION['error']['gia_ban']) ? $_SESSION['error']['gia_ban'] : '' ?>
@@ -132,7 +132,7 @@
 
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="emailidInput" class="form-label">Gia khuyen mai </label>
+                                                        <label for="emailidInput" class="form-label">Giá khuyến mãi</label>
                                                         <input type="number" class="form-control"  name="gia_khuyen_mai">
                                                         <span class="text-danger">
                                                             <?= !empty($_SESSION['error']['gia_khuyen_mai']) ? $_SESSION['error']['gia_khuyen_mai'] : '' ?>
@@ -144,7 +144,7 @@
 
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="emailidInput" class="form-label">Ngay nhap </label>
+                                                        <label for="emailidInput" class="form-label">Ngày nhập</label>
                                                         <input type="date" class="form-control"  name="ngay_nhap">
                                                         <span class="text-danger">
                                                             <?= !empty($_SESSION['error']['ngay_nhap']) ? $_SESSION['error']['ngay_nhap'] : '' ?>
@@ -156,7 +156,7 @@
 
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="emailidInput" class="form-label">So luong </label>
+                                                        <label for="emailidInput" class="form-label">Số lượng</label>
                                                         <input type="number" class="form-control"  name="so_luong">
                                                         <span class="text-danger">
                                                             <?= !empty($_SESSION['error']['so_luong']) ? $_SESSION['error']['so_luong'] : '' ?>
@@ -170,7 +170,7 @@
                                           
                                                 <div class="form-group col-12">
                                                     <div class="mb-3">
-                                                        <label for="emailidInput" class="form-label">Mo ta </label>
+                                                        <label for="emailidInput" class="form-label">Mô tả</label>
                                                         <input type="text" class="form-control"  name="mo_ta">
                                                         <span class="text-danger">
                                                             <?= !empty($_SESSION['error']['mo_ta']) ? $_SESSION['error']['mo_ta'] : '' ?>
@@ -184,7 +184,7 @@
                                                 
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="emailidInput" class="form-label">Luot xem</label>
+                                                        <label for="emailidInput" class="form-label">Lượt xem</label>
                                                         <input type="number" class="form-control"  name="luot_xem">
                                                        
                                                     </div>
@@ -193,7 +193,7 @@
 
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="emailidInput" class="form-label">Danh muc </label>
+                                                        <label for="emailidInput" class="form-label">Danh mục</label>
                                                         <select class="form-select" name="danh_muc_id">
                                                             <option selected disabled>Chọn danh muc sản phẩm </option>
                                                             <?php foreach($listDanhMuc  as $danhmuc): ?>
@@ -210,7 +210,7 @@
 
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="emailidInput" class="form-label">Trang thai </label>
+                                                        <label for="emailidInput" class="form-label">Trạng thái</label>
                                                         <select class="form-select" name="trang_thai">
                                                             <option selected disabled>Chọn trạng thái sản phẩm </option>
                                                             <option value="1">Còn bán</option>

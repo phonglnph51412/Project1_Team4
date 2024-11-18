@@ -7,7 +7,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Danh mục sản phẩm | NN Shop</title>
+    <title>Danh mục sản phẩm | PRIME Shop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -78,10 +78,10 @@
                                                     <tr>
                                                         <th scope="col">STT</th>
                                                         <th scope="col">Tên danh mục</th>
-                                                          <th scope="col">Mo ta</th>
+                                                          <th scope="col">Mô tả</th>
                                                         <th scope="col">Trạng thái</th>
                                                       
-                                                        <th scope="col">Action</th>
+                                                        <th scope="col">Thao tác</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

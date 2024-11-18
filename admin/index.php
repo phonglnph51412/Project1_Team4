@@ -48,7 +48,7 @@ match ($act) {
     // Dashboards
     '/'                      => (new DashboardController())->index(),
    
-    //quản lý danh mục sản phẩm(truong)
+    //quản lý danh mục sản phẩm
     'danh-mucs'              => (new DanhMucController())->index(),
     'form- them-danh-muc'    => (new DanhMucController())->create(),
     'them-danh-muc'          => (new DanhMucController())->store(),
@@ -65,7 +65,7 @@ match ($act) {
     'sua-san-pham'           => (new SanPhamController())->postEditSanPham(),
     'xoa-san-pham'           => (new SanPhamController())->deleteSanPham(),
 
-    // quản lý người dùng(huy)
+    // quản lý người dùng
     'tai-khoans'         => (new TaiKhoanController())->index_taikhoan(),
     'form-them-quan-tri' => (new TaiKhoanController())->formAddQuanTri(),
     'them-quan-tri' =>(new TaiKhoanController())->postAddQuanTri(),
@@ -87,21 +87,21 @@ match ($act) {
     'sua-khuyen-mai' =>(new TaiKhoanController())->postEditKhuyenmai(),
 
 
-    // Trang thái đơn hàng(trường)
+    // Trang thái đơn hàng
     'trang-thais'              => (new TrangThaiController())->index_trang_thai(),
     'form- them-trang-thai'    => (new TrangThaiController())->create_trang_thai(),
     'them-trang-thai'          => (new TrangThaiController())->store_trang_thai(),
     'form-sua-trang-thai'      => (new TrangThaiController())->edit_trang_thai(),
     'sua-trang-thai'           => (new TrangThaiController())->update_trang_thai(),
     'xoa-trang-thai'           => (new TrangThaiController())->destroy_trang_thai(),
-    // quản lý tin tức sản phẩm(quang)
+    // quản lý tin tức sản phẩm
     'tin-tucs'          => (new TinTucController())->index_tin_tuc(),
     'form-them-tin-tuc' => (new TinTucController())->create_tin_tuc(),
     'them-tin-tuc'      => (new TinTucController())->store_tin_tuc(),
     'form-sua-tin-tuc'  => (new TinTucController())->edit_tin_tuc(),
     'sua-tin-tuc'       => (new TinTucController())->update_tin_tuc(),
     'xoa-tin-tuc'       => (new TinTucController())->destroy_tin_tuc(),
-     //quản lý liên hệ(truong)
+     //quản lý liên hệ
      'lien-hes'              => (new LienHeController())->index_lien_he(),
      'form- them-lien-he'    => (new LienHeController())->create_lien_he(),
      'them-lien-he'          => (new LienHeController())->store_lien_he(),

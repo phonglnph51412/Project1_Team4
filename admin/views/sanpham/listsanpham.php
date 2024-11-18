@@ -7,7 +7,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Quan Li San Pham| NN Shop</title>
+    <title>Quan Lý Sản Phâme | Prime Shop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -45,12 +45,12 @@
                 <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
-                                <h4 class="mb-sm-0">quan li san pham</h4>
+                                <h4 class="mb-sm-0">Quản lý sản phẩm</h4>
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
-                                        <li class="breadcrumb-item active">Tai khoan quan tri</li>
+                                        <li class="breadcrumb-item active">Tài khoản quản trị</li>
                                     </ol>
                                 </div>
 
@@ -64,9 +64,9 @@
                             <div class="h-100">
                             <div class="card">
                                 <div class="card-header align-items-center d-flex">
-                                    <h4 class="card-title mb-0 flex-grow-1">Danh sach san pham </h4>
+                                    <h4 class="card-title mb-0 flex-grow-1">Danh sách sản phẩm </h4>
                                   <a href="?act=form-them-san-pham" class="btn btn-soft-success material-shadow-none">
-                                    <i class="ri-add-circle-line align-middle me-1"></i> Them san pham </button></a> 
+                                    <i class="ri-add-circle-line align-middle me-1"></i> Thêm sản phẩm </button></a> 
 
                         
                                       
@@ -80,19 +80,19 @@
                                                     <tr>
                                                         <th scope="col">STT</th>
                                                         
-                                                        <th scope="col">Ten SP </th>
-                                                        <th scope="col">Anh SP </th>
+                                                        <th scope="col">Tên </th>
+                                                        <th scope="col">Ảnh </th>
                                                         
-                                                        <th scope="col">Gia tien </th>
-                                                        <th scope="col">Gia KM </th>
-                                                        <th scope="col">Ngay nhap</th>
-                                                        <th scope="col">So luong  </th>
+                                                        <th scope="col">Giá tiền </th>
+                                                        <th scope="col">Giá khuyến mãi</th>
+                                                        <th scope="col">Ngày nhập</th>
+                                                        <th scope="col">Số lượng</th>
                                                        
-                                                        <th scope="col">Mo ta </th>
+                                                        <th scope="col">Mô tả</th>
                                                        
-                                                        <th scope="col">Danh muc </th>
-                                                        <th scope="col">Trang thai </th>
-                                                        <th scope="col">Thao tac  </th>
+                                                        <th scope="col">Danh mục</th>
+                                                        <th scope="col">Trạng thái</th>
+                                                        <th scope="col">Thao tác</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -121,11 +121,11 @@
                                                             <?php
                                                                 if ($sanPham['trang_thai'] == 1){
                                                             ?>
-                                                                <span class="badge bg-success">Con Ban</span>
+                                                                <span class="badge bg-success">Còn bán</span>
                                                             <?php
                                                              }else{
                                                             ?>
-                                                                <span class="badge bg-danger">Dung Ban </span>
+                                                                <span class="badge bg-danger">Dừng bán</span>
 
                                                             <?php
                                                                 }
@@ -164,16 +164,16 @@
             <footer class="footer">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <!-- <div class="col-sm-6">
                             <script>
                                 document.write(new Date().getFullYear())
                             </script> © Velzon.
-                        </div>
+                        </div> -->
                         <div class="col-sm-6">
-                            <div class="text-sm-end d-none d-sm-block">
+                            <!-- <div class="text-sm-end d-none d-sm-block">
                                 Design & Develop by Themesbrand
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </footer>
@@ -199,12 +199,12 @@
             </div>
         </div>
     </div>
-
+<!-- 
     <div class="customizer-setting d-none d-md-block">
         <div class="btn-info rounded-pill shadow-lg btn btn-icon btn-lg p-2" data-bs-toggle="offcanvas" data-bs-target="#theme-settings-offcanvas" aria-controls="theme-settings-offcanvas">
             <i class='mdi mdi-spin mdi-cog-outline fs-22'></i>
         </div>
-    </div>
+    </div> -->
 
     <!-- JAVASCRIPT -->
     <?php
