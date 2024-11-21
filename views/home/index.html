@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doc</title>
+    <style>
+        body {
+                 font-family: Arial, sans-serif;
+                 margin: 0;
+                 padding: 0;
+                 background-color: #f5f5f5;
+             }
+             .container {
+                 display: flex;
+                 justify-content: center;
+                 flex-wrap: wrap;
+                 padding: 4px;
+             }
+             .card {
+                 background-color: white;
+                 border: 1px solid #ddd;
+                 border-radius: 5px;
+                 width: 200px;
+                 margin: 10px;
+                 padding: 10px;
+                 box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+             }
+             .card img {
+                 width: 100%;
+                 border-bottom: 1px solid #ddd;
+             }
+             .card .price {
+                 font-size: 18px;
+                 font-weight: bold;
+                 margin: 5px 0;
+                /*bottom: 20px; Cách đáy của container 20px 
+                left: 20px; Cách bên trái của container 20px */
+             }
+            
+             .card .title {
+                 font-size: 16px;
+                 font-weight: bold;
+                 margin: 10px 0;
+             }
+             .card .description {
+                 color: #777;
+                 margin-bottom: 10px;
+             }
+            .baner {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: url('https://placehold.co/1920x1080') no-repeat center center/cover;
+            }
+            .text-box {
+                position: absolute;
+                bottom: 20px;
+                left: 20px;
+                background-color: rgba(255, 255, 255, 0.9);
+                padding: 20px;
+                max-width: 300px;
+            }
+            .text-box h1 {
+                margin: 0;
+                font-size: 24px;
+            }
+            .text-box p {
+                margin: 10px 0;
+                font-size: 14px;
+            }
+            .button {
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: black;
+                color: white;
+                text-decoration: none;
+                font-size: 14px;
+                margin-top: 10px;
+            }
+        .container_duoi {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        h1 {
+            color: #1a1f71;
+            font-size: 24px;
+        }
+        .card-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .card_duoi {
+            width: 23%;
+            margin-bottom: 20px;
+            /* text-align: center; */
+        }
+        .card_duoi img {
+            width: 100%;
+            height: auto;
+        }
+        .card-text {
+            margin-top: 10px;
+        }
+        .card-text p {
+            margin: 5px 0;
+        }
+        .card-text .title {
+            font-weight: bold;
+        }
+        .card-text .subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+        .card-text .shop-now {
+            color: #cb1717;
+            font-weight: bold;
+            text-decoration: none;
+        }
+            
+       </style>
+      </head>
+      <body>
+       <div class="container">
+        <div class="card">
+        <div class="cart1">
+            <img alt="Black and white Nike JD1 Primeum shoe" height="200px" src="https://storage.googleapis.com/a1aa/image/14CmXOetCpwuAyGyClX600qeXamFyJZuD0kvH9XFbE9zYdyTA.jpg" width="100px"/>
+            <div class="price">
+            30$
+            </div>
+        </div>
+         <div class="title">
+          Giày thể thao Nike JD1 Primeum
+         </div>
+         <div class="description">
+          Performance
+         </div>
+        </div>
+        <div class="card">
+         <img alt="Blue and white Nike JD1 Primeum shoe" height="200" src="https://storage.googleapis.com/a1aa/image/zgpzLg8x1orGP19O7m0p6GURrBgTaVADCptdY9OgfyhbsO5JA.jpg" width="200"/>
+         <div class="price">
+          30$
+         </div>
+         <div class="title">
+          Giày thể thao Nike JD1 Primeum
+         </div>
+         <div class="description">
+          Performance
+         </div>
+        </div>
+        <div class="card">
+         <img alt="White and black Nike JD1 Primeum shoe" height="200" src="https://storage.googleapis.com/a1aa/image/LLvYpx2UQD4XLNLdEepanUFUXlEoXLkNOjL9RqVeBPQ2YdyTA.jpg" width="200"/>
+         <div class="price">
+          30$
+         </div>
+         <div class="title">
+          Giày thể thao Nike JD1 Primeum
+         </div>
+         <div class="description">
+          Performance
+         </div>
+        </div>
+        <div class="card">
+         <img alt="White and grey Nike JD1 Primeum shoe" height="200" src="https://storage.googleapis.com/a1aa/image/4sTsUgDOVOIWEd25nYIrWtSw6Z8wO2ksLhqxeNQJm8lasO5JA.jpg" width="200"/>
+         <div class="price">
+          30$
+         </div>
+         <div class="title">
+          Giày thể thao Nike JD1 Primeum
+         </div>
+         <div class="description">
+          Performance
+         </div>
+        </div>
+        <div class="card">
+         <img alt="White and red Nike JD1 Primeum shoe" height="200" src="https://storage.googleapis.com/a1aa/image/3SqA3U5ZFpbfCyJwm7oWCTepRAR2sxuFQqt8XnK6fdkhx6knA.jpg" width="200"/>
+         <div class="price">
+          30$
+         </div>
+         <div class="title">
+          Giày thể thao Nike JD1 Primeum
+         </div>
+         <div class="description">
+          Performance
+         </div>
+        </div>
+        <div class="baner">
+            <img alt="Three hands holding white Adidas Superstar shoes against a blue background" height="1080" src="https://storage.googleapis.com/a1aa/image/hM8RGffsJ5oycEclJD4It9SiIN73ceGH7DZYAlOuBg7Za8knA.jpg" style="width:100%; height:100%; object-fit:cover;" width="1920"/>
+            <div class="text-box">
+             <h1>
+              Turf Copa Pure 2 League
+             </h1>
+             <p>
+              Introducing your new favorite F50, Predator and Copa boots.
+             </p>
+             <a class="button" href="#">
+              See more
+             </a>
+            </div>
+           </div>
+       </div>
+       <div class="container_duoi">
+            <h1>
+            What's hot
+            </h1>
+            <div class="card-container">
+                <div class="card_duoi">
+                <img alt="Group of people wearing white sportswear" height="400" src="https://storage.googleapis.com/a1aa/image/db2z39NwerQ3RiDyd24psLZlJTw9i1SNf8eyjJYMEyqFD9knA.jpg" width="300"/>
+                <div class="card-text">
+                <p class="title">
+                    WORN BY BABIMOSTER
+                </p>
+                <p class="subtitle">
+                    ADIDAS Z.N.E
+                </p>
+                <a class="shop-now" href="#">
+                    SHOP NOW
+                </a>
+                </div>
+                </div>
+                <div class="card_duoi">
+                    <img alt="Group of people wearing white sportswear" height="400" src="https://storage.googleapis.com/a1aa/image/db2z39NwerQ3RiDyd24psLZlJTw9i1SNf8eyjJYMEyqFD9knA.jpg" width="300"/>
+                    <div class="card-text">
+                    <p class="title">
+                        WORN BY BABIMOSTER
+                    </p>
+                    <p class="subtitle">
+                        ADIDAS Z.N.E
+                    </p>
+                    <a class="shop-now" href="#">
+                        SHOP NOW
+                    </a>
+                    </div>
+                    </div>
+                    <div class="card_duoi">
+                        <img alt="Group of people wearing white sportswear" height="400" src="https://storage.googleapis.com/a1aa/image/db2z39NwerQ3RiDyd24psLZlJTw9i1SNf8eyjJYMEyqFD9knA.jpg" width="300"/>
+                        <div class="card-text">
+                        <p class="title">
+                            WORN BY BABIMOSTER
+                        </p>
+                        <p class="subtitle">
+                            ADIDAS Z.N.E
+                        </p>
+                        <a class="shop-now" href="#">
+                            SHOP NOW
+                        </a>
+                        </div>
+                        </div>
+                        <div class="card_duoi">
+                            <img alt="Group of people wearing white sportswear" height="400" src="https://storage.googleapis.com/a1aa/image/db2z39NwerQ3RiDyd24psLZlJTw9i1SNf8eyjJYMEyqFD9knA.jpg" width="300"/>
+                            <div class="card-text">
+                            <p class="title">
+                                WORN BY BABIMOSTER
+                            </p>
+                            <p class="subtitle">
+                                ADIDAS Z.N.E
+                            </p>
+                            <a class="shop-now" href="#">
+                                SHOP NOW
+                            </a>
+                            </div>
+                            </div>
+                            
+            </div>
+        </div>
+</body>
+</html>

@@ -1,0 +1,147 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Container */
+.container {
+    /* background-color: #000; */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Row (12 cột) */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.align-center {
+    align-items: center;
+}
+
+/* Columns */
+[class*="col-"] {
+    padding: 10px;
+    flex-basis: 100%;
+}
+
+.col-2 {
+    flex: 0 0 calc(100% / 12 * 2);
+    text-align: left;
+}
+
+.col-8 {
+    flex: 0 0 calc(100% / 12 * 8);
+    text-align: center;
+}
+
+.col-2.icons {
+    flex: 0 0 calc(100% / 12 * 2);
+    text-align: right;
+}
+
+/* Header */
+.header {
+    background-color: #fff;
+    padding: 15px 0;
+    /* border-bottom: 1px solid #ddd; */
+    font-family: Arial, sans-serif;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo */
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000;
+}
+
+.logo .highlight {
+    color: #0015f9;
+    /* Màu xanh nổi bật cho chữ "P" */
+}
+
+/* Navigation Menu */
+.nav-menu ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.nav-menu ul li {
+    display: inline-block;
+}
+
+.nav-menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-menu ul li a:hover {
+    color: #0015f9;
+    /* Màu xanh khi hover */
+}
+
+/* Icons */
+.icons a {
+    margin-left: 15px;
+    text-decoration: none;
+    position: relative;
+}
+
+.icons a img {
+    width: 20px;
+    height: 20px;
+}
+
+.icons .cart {
+    background-color: #0015f9;
+    /* Nền xanh cho giỏ hàng */
+    padding: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.icons .cart img {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+/* Line below menu */
+.menu-line {
+    width: 100%;
+    height: 2px;
+    background-color: #0015f9;
+    margin-top: 10px;
+}
+
+/* Responsive (màn hình nhỏ hơn 768px) */
+@media (max-width: 768px) {
+
+    .col-2,
+    .col-8,
+    .icons {
+        flex: 0 0 100%;
+        text-align: center;
+    }
+
+    .nav-menu ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .menu-line {
+        margin-top: 15px;
+    }
+}
