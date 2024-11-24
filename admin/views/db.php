@@ -22,6 +22,7 @@
     require_once "layouts/header.php";
     require_once "layouts/siderbar.php";
     ?>
+    <h2 style="padding:100px 280px;">WELLCOME TO ADMIN!</h2>
 
     <?php
     require_once "layouts/libs_js.php";

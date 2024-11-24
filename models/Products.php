@@ -1,6 +1,6 @@
 <?php
 
-class Home
+class Products
 {
     private $db;
 
@@ -12,7 +12,7 @@ class Home
     // Lấy tất cả sản phẩm
     public function getAllProducts()
     {
-        $query = "SELECT * FROM san_phams";
+        $query = "SELECT * FROM san_pham";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -21,7 +21,7 @@ class Home
     // Lấy sản phẩm theo ID
     public function getProductById($id)
     {
-        $query = "SELECT id, ten_danh_muc FROM san_phams WHERE id = :id";
+        $query = "SELECT * FROM san_pham WHERE id = :id";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -30,27 +30,37 @@ class Home
 
 
     // Lấy ra danh mục sản phẩm
-    public function getAllCategories()
+    public function getAllDanhMuc()
     {
-        $query = "SELECT id, ten_danh_muc FROM danh_mucs";
+        $query = "SELECT * FROM danh_muc_san_pham";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll();
     }
-
-    // Lấy danh sách sản phẩm theo danh mục và giới hạn số lượng
-    public function getProductsByCategory($categoryId, $limit = 5)
+    public function getDanhMuc($id)
     {
-        // Ép kiểu $limit thành số nguyên để đảm bảo an toàn
-        $limit = (int)$limit;
-
-        // Sử dụng LIMIT trực tiếp trong câu truy vấn
-        $query = "SELECT * FROM san_phams WHERE danh_muc_id = ? LIMIT $limit";
+        $query = "SELECT * FROM danh_muc_san_pham WHERE id = :id";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$categoryId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 
+    // public function getAllDonHang()
+    // {
+    //     $query = "SELECT * FROM don_hang";
+    //     $stmt = $this->db->prepare($query);
+    //     $stmt->execute();
+    //     return $stmt->fetchAll();
+    // }
+
+    public function getAllBinhLuan()
+    {
+        $query = "SELECT * FROM gui_danh_gia";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 
     public function getAllNguoiDung()
     {

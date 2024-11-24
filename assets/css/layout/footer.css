@@ -1,69 +1,44 @@
-/* Reset CSS */
+/* Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Container */
-.container {
-    width: 100%;
+/* Container chung */
+.footer {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 20px;
+    background-color: #c7c7c7;
+    color: #333;
+    font-family: Arial, sans-serif;
 }
 
-/* Row */
+/* Dòng và cột */
 .row {
     display: flex;
     flex-wrap: wrap;
-    margin: -10px;
+    gap: 15px;
+    /* Khoảng cách giữa các cột */
 }
 
-/* Columns (12-grid system) */
-[class*="col-"] {
-    padding: 10px;
-    flex-basis: 100%;
-    /* Mặc định chiếm 100% */
-}
-
-/* Layout cho các kích thước màn hình */
-.col-1 {
-    flex: 0 0 calc(100% / 12 * 1);
-}
-
-.col-2 {
-    flex: 0 0 calc(100% / 12 * 2);
-}
-
-.col-3 {
-    flex: 0 0 calc(100% / 12 * 3);
-}
-
-.col-4 {
-    flex: 0 0 calc(100% / 12 * 4);
-}
-
-.col-6 {
-    flex: 0 0 calc(100% / 12 * 6);
-}
-
-.col-12 {
-    flex: 0 0 calc(100% / 12 * 12);
-}
-
-/* Footer Styles */
-.footer {
-    background-color: #f8f8f8;
-    padding: 20px 0;
-    font-family: Arial, sans-serif;
-    color: #333;
+.col {
+    flex: 1 1 calc(25% - 15px);
+    /* Tự động căn đều 4 cột với khoảng cách */
+    min-width: 200px;
+    /* Chiều rộng tối thiểu */
 }
 
 .footer-logo {
-    font-size: 24px;
-    font-weight: bold;
+    margin-left: 31px;
+    width: 200px;
+    height: 80px;
+    background-color: white;
+    font-size: 50px;
+    font-weight: 600;
     margin-bottom: 10px;
+    font-family: 'Montserrat Alternates', sans-serif !important;
 }
 
 .footer h3 {
@@ -74,11 +49,12 @@
 .footer p {
     font-size: 14px;
     line-height: 1.6;
-    color: #555;
+    color: #333;
 }
 
 .footer ul {
     list-style: none;
+    margin: 0;
     padding: 0;
 }
 
@@ -93,18 +69,23 @@
 }
 
 .footer ul li a:hover {
-    color: #007bff;
+    color: #000080;
+    font-weight: bold;
 }
 
-/* Biểu tượng mạng xã hội */
+/* Mạng xã hội */
 .footer-socials a {
-    display: inline-block;
     margin-right: 10px;
 }
 
-.footer-socials a img {
+.footer-socials img {
     width: 24px;
     height: 24px;
+    transition: transform 0.3s ease;
+}
+
+.footer-socials img:hover {
+    transform: scale(1.1);
 }
 
 /* Bản quyền */
@@ -112,17 +93,22 @@
     text-align: center;
     margin-top: 20px;
     font-size: 14px;
-    color: #777;
-    border-top: 1px solid #ccc;
+    color: #ccc;
+    border-top: 1px solid #555;
     padding-top: 10px;
 }
 
-/* Responsive (màn hình nhỏ hơn 768px) */
+/* Responsive */
 @media (max-width: 768px) {
-    .col-3 {
-        flex: 0 0 100%;
-        /* Mỗi cột chiếm toàn bộ chiều ngang */
+    .row {
+        flex-direction: column;
         text-align: center;
+    }
+
+    .col {
+        flex: 1 1 100%;
+        /* Cột chiếm toàn bộ chiều rộng */
+        margin-bottom: 20px;
     }
 
     .footer-socials {

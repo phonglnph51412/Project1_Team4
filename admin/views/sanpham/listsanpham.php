@@ -7,7 +7,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Quan Lý Sản Phâme | Prime Shop</title>
+    <title>Quan Lý Sản Phẩm | Prime Shop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -104,15 +104,16 @@
                                                       
                                                         <td><?= $sanPham['ten_san_pham'] ?></td>
                                                         <td>
-                                                            <img src="<?= BASE_URL .  $sanPham['hinh_anh'] ?>" style="width: 100px" alt=""
-                                                            onerror="this.onerror=null; this.src='https:img.pikbest.com/wp/202345/cat-dog-pet-and-pets-in-real-pictures-wallpapers_9596134.jpg!w700wp'"
+                                                            <img src="<?= $sanPham['hinh_anh'] ?>" style="width: 100px" alt=""
+                                                            
                                                             >
                                                         </td>
 
                                                         <td><?= $sanPham['gia_ban'] ?></td>
                                                         <td><?= $sanPham['gia_khuyen_mai'] ?></td>
                                                         <td><?= $sanPham['ngay_nhap'] ?></td>
-                                                        <td><?= $sanPham['so_luong'] ?></td>
+                                                        <td>0</td>
+                                                        <!-- <td><?= $sanPham['so_luong'] ?></td> -->
                                                        
                                                         <td><?= $sanPham['mo_ta'] ?></td>
                                                         <td><?= $sanPham['ten_danh_muc'] ?></td>

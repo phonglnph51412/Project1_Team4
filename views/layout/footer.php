@@ -5,36 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Footer</title>
-    <link rel="stylesheet" href="http://localhost/Duan1/Project1_Team4/assets/css/layout/footer.css">
-
+    <link rel="stylesheet" href="http://localhost/Duan1/Project1_Team4/assets/css/layout/footer.css?v=<?= time(); ?>">
 </head>
 
 <body>
-    <footer class="footer">
-        <div class="container">
+    <footer>
+        <div class="footer">
             <div class="row">
-                <!-- Cột 1: Logo và mô tả (chiếm 3 cột) -->
-                <div class="col-3">
-                    <div class="footer-logo">Prime</div>
+                <!-- Cột 1 -->
+                <div class="col col-3">
+                    <div class="footer-logo"><span style="color: #000080;">P</span>rime</div>
                     <p>Providing world-leading language certification</p>
                 </div>
 
-                <!-- Cột 2: Hỗ trợ khách hàng (chiếm 3 cột) -->
-                <div class="col-3">
-                    <h3>You need support</h3>
-                    <p>0000 1133</p>
+                <!-- Cột 2 -->
+                <div class="col col-3">
+                    <h3>Need Support?</h3>
+                    <p>Phone: 0000 1133</p>
                     <p>Address: Nam Tu Liem, Hanoi</p>
-                    <p>Email: support@prime.vn</p>
+                    <p style="padding-bottom: 10px;">Email: support@prime.vn</p>
                     <div class="footer-socials">
-                        <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
-                        <a href="#"><img src="twitter-icon.png" alt="Twitter"></a>
-                        <a href="#"><img src="youtube-icon.png" alt="YouTube"></a>
-                        <a href="#"><img src="paypal-icon.png" alt="PayPal"></a>
+                        <a href="#"><img src="https://cdn-icons-png.flaticon.com/128/1051/1051309.png" alt="Facebook"></a>
+                        <a href="#"><img src="https://cdn-icons-png.flaticon.com/128/25/25347.png" alt="Twitter"></a>
+                        <a href="#"><img src="https://cdn-icons-png.flaticon.com/128/254/254412.png" alt="YouTube"></a>
                     </div>
                 </div>
 
-                <!-- Cột 3: Registration Guide (chiếm 3 cột) -->
-                <div class="col-3">
+                <!-- Cột 3 -->
+                <div class="col col-3">
                     <h3>Registration Guide</h3>
                     <ul>
                         <li><a href="#">Home</a></li>
@@ -45,8 +43,8 @@
                     </ul>
                 </div>
 
-                <!-- Cột 4: Customer Support (chiếm 3 cột) -->
-                <div class="col-3">
+                <!-- Cột 4 -->
+                <div class="col col-3">
                     <h3>Customer Support</h3>
                     <ul>
                         <li><a href="#">Home</a></li>
@@ -58,14 +56,12 @@
                 </div>
             </div>
 
-            <!-- Phần bản quyền -->
+            <!-- Bản quyền -->
             <div class="footer-copyright">
-                <p>&copy; Copyright belongs to Prime</p>
+                <p>&copy; 2024 Prime. All rights reserved.</p>
             </div>
         </div>
     </footer>
-
-
 </body>
 
 </html>
