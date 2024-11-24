@@ -88,10 +88,10 @@ body {
       text-align: center;
   }
 
-  .product-card img {
+  /* .product-card img {
       max-width: 100%;
       height: auto;
-  }
+  } */
 
   .product-card .name {
       font-weight: 500;

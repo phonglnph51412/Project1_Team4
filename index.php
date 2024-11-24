@@ -5,14 +5,15 @@ require_once './commons/env.php'; // Khai báo biến môi trường
 require_once './commons/function.php'; // Hàm hỗ trợ
 
 // Require toàn bộ file Controllers
-require_once './controllers/ProductsController.php';
-require_once './controllers/danhMucController.php';
-require_once './controllers/nguoiDungController.php';
+// require_once './controllers/ProductsController.php';
+// require_once './controllers/danhMucController.php';
+// require_once './controllers/nguoiDungController.php';
+require_once './controllers/HomeController.php';
 
 // Require toàn bộ file Models
-require_once './models/Products.php';
-require_once './models/danhMuc.php';
-require_once './models/nguoiDung.php';
+// require_once './models/Products.php';
+// require_once './models/danhMuc.php';
+require_once './models/Home.php';
 
 // Route
 $act = $_GET['act'] ?? '/';
@@ -23,6 +24,8 @@ match ($act) {
     // Trang chủ
     '/' => (new ProductsController())->index(),
     'admin' => (new ProductsController())->admin(),
+    'home' => (new HomeController())->home(),
+    'danh-muc' => (new HomeController())->danhMuc(),
 
     // 'form-Add-Products' => (new ProductsController())->formAddProducts(),
     // 'post-Add-Products' => (new ProductsController())->postAddProducts(),
@@ -40,3 +43,295 @@ match ($act) {
     'viewCart' => (new ProductsController())->viewCart(),
     'login' => (new nguoiDungController())->login(),
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

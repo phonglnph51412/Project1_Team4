@@ -9,7 +9,7 @@ define('BASE_URL_ADMIN'   , 'http://localhost/Duan1/Project1_Team4/admin/');
 
 define('DB_HOST'    , 'localhost');
 define('DB_PORT'    , 3306);
-define('DB_NAME'    , 'du_an_1.1');  // Tên database
+define('DB_NAME'    , 'du-an-1.1');  // Tên database
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
 
