@@ -101,6 +101,9 @@ body {
 .brand-logos ul li {
     margin-bottom: 10px;
 }
+.brand-logos ul li  a{
+    font-size: 20px;
+}
 
 /* Style for each button (category) */
 .brand-logos button {
