@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Footer</title>
-    <link rel="stylesheet" href="http://localhost/Duan1/Project1_Team4/assets/css/layout/footer.css?v=<?= time(); ?>">
+    <link rel="stylesheet" href="http://localhost/Duan1/Project1_Team4/assets/css/layout/footer.css">
 </head>
 
 <body>
@@ -14,7 +14,7 @@
             <div class="row">
                 <!-- Cột 1 -->
                 <div class="col col-3">
-                    <div class="footer-logo"><span style="color: #000080;">P</span>rime</div>
+                    <div class="footer-logo" style="margin-left: 40px;"><span style="color: #000080;">P</span>rime</div>
                     <p>Providing world-leading language certification</p>
                 </div>
 
@@ -22,7 +22,7 @@
                 <div class="col col-3">
                     <h3>Need Support?</h3>
                     <p>Phone: 0000 1133</p>
-                    <p>Address: Nam Tu Liem, Hanoi</p>
+                    <p>Address: Quoc Oai, Ha Noi, Viet Nam</p>
                     <p style="padding-bottom: 10px;">Email: support@prime.vn</p>
                     <div class="footer-socials">
                         <a href="#"><img src="https://cdn-icons-png.flaticon.com/128/1051/1051309.png" alt="Facebook"></a>
@@ -36,10 +36,10 @@
                     <h3>Registration Guide</h3>
                     <ul>
                         <li><a href="#">Home</a></li>
-                        <li><a href="#">Introduction</a></li>
-                        <li><a href="#">Courses</a></li>
-                        <li><a href="#">Contact</a></li>
                         <li><a href="#">User Guide</a></li>
+                        <li><a href="#">Courses</a></li>
+                        <li><a href="#">Login</a></li>
+                        <li><a href="#">Register</a></li>
                     </ul>
                 </div>
 
@@ -51,7 +51,7 @@
                         <li><a href="#">Introduction</a></li>
                         <li><a href="#">Courses</a></li>
                         <li><a href="#">Contact</a></li>
-                        <li><a href="#">User Guide</a></li>
+                        <li><a href="#">About Us</a></li>
                     </ul>
                 </div>
             </div>

@@ -8,12 +8,16 @@ require_once './commons/function.php'; // Hàm hỗ trợ
 // Require toàn bộ file Controllers
 require_once './controllers/HomeController.php';
 require_once './controllers/CartController.php';
-// require_once './controllers/ProductsController.php';
+require_once './controllers/ProductsController.php';
+require_once './controllers/UserController.php';
 
 
 // Require toàn bộ file Models
 require_once './models/Home.php';
 require_once './models/Cart.php';
+require_once './models/Products.php';
+require_once './models/User.php';
+
 // require_once './models/Products.php';
 
 // Route
@@ -24,8 +28,16 @@ $act = $_GET['act'] ?? '/';
 match ($act) {
     // Trang chủ
     '/' => (new HomeController())->home(),
-    'view-cart' => (new CartController())->viewCart(),
-    'view-pay' => (new CartController())->viewPay(),
+    // 'view-cart' => (new CartController())->viewCart(),
+    // 'view-pay' => (new CartController())->viewPay(),
+    'product-detail' => (new HomeController())->viewProductDetail(),
+    'login' => (new AuthController())->login(),
+    'logout' => (new AuthController())->logout(),
+    'view-products' => (new ProductsController())->productsList(),
+    'my-cart' => (new CartController)->viewCart(),
+    'pay' => (new CartController)->viewPay(),
+    'about-us' => (new HomeController())->aboutUs(),
+    'contact' => (new HomeController())->contact(),
 
 
 

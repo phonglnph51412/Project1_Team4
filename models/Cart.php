@@ -1,72 +1,27 @@
 <?php
-
 class Cart
 {
-    private $db;
-
-    public function __construct()
+    // Thêm sản phẩm vào giỏ hàng
+    public function addProductToCart($user_id, $product_id, $color, $size, $quantity)
     {
-        $this->db = connectDB(); // Khởi tạo đối tượng kết nối cơ sở dữ liệu
-    }
+        global $pdo; // Kết nối đến database thông qua PDO
 
-    // Lấy tất cả sản phẩm
-    public function getAllProducts()
-    {
-        $query = "SELECT * FROM san_pham";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+        // Kiểm tra nếu giỏ hàng của người dùng đã tồn tại
+        $stmt = $pdo->prepare("SELECT id FROM gio_hangs WHERE nguoi_dung_id = ?");
+        $stmt->execute([$user_id]);
+        $cart = $stmt->fetch();
 
-    // Lấy sản phẩm theo ID
-    public function getProductById($id)
-    {
-        $query = "SELECT * FROM san_pham WHERE id = :id";
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
+        if (!$cart) {
+            // Tạo giỏ hàng mới nếu chưa có
+            $stmt = $pdo->prepare("INSERT INTO gio_hangs (nguoi_dung_id) VALUES (?)");
+            $stmt->execute([$user_id]);
+            $cart_id = $pdo->lastInsertId();
+        } else {
+            $cart_id = $cart['id'];
+        }
 
-
-    // Lấy ra danh mục sản phẩm
-    public function getAllDanhMuc()
-    {
-        $query = "SELECT * FROM danh_muc_san_pham";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
-    public function getDanhMuc($id)
-    {
-        $query = "SELECT * FROM danh_muc_san_pham WHERE id = :id";
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
-
-    // public function getAllDonHang()
-    // {
-    //     $query = "SELECT * FROM don_hang";
-    //     $stmt = $this->db->prepare($query);
-    //     $stmt->execute();
-    //     return $stmt->fetchAll();
-    // }
-
-    public function getAllBinhLuan()
-    {
-        $query = "SELECT * FROM gui_danh_gia";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
-
-    public function getAllNguoiDung()
-    {
-        $query = "SELECT * FROM nguoi_dung";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll();
+        // Thêm sản phẩm vào giỏ hàng
+        $stmt = $pdo->prepare("INSERT INTO chi_tiet_gio_hangs (gio_hang_id, san_pham_id, so_luong, mau, kich_thuoc) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$cart_id, $product_id, $quantity, $color, $size]);
     }
 }

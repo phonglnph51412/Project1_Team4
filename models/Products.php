@@ -12,7 +12,7 @@ class Products
     // Lấy tất cả sản phẩm
     public function getAllProducts()
     {
-        $query = "SELECT * FROM san_pham";
+        $query = "SELECT * FROM san_phams";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -21,7 +21,7 @@ class Products
     // Lấy sản phẩm theo ID
     public function getProductById($id)
     {
-        $query = "SELECT * FROM san_pham WHERE id = :id";
+        $query = "SELECT * FROM san_phams WHERE id = :id";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -30,20 +30,32 @@ class Products
 
 
     // Lấy ra danh mục sản phẩm
-    public function getAllDanhMuc()
+    public function getAllCategories()
     {
-        $query = "SELECT * FROM danh_muc_san_pham";
+        $query = "SELECT * FROM danh_mucs";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll();
     }
     public function getDanhMuc($id)
     {
-        $query = "SELECT * FROM danh_muc_san_pham WHERE id = :id";
+        $query = "SELECT * FROM danh_mucs WHERE id = :id";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll();
+    }
+
+    // Lấy danh sách sản phẩm theo danh mục và giới hạn số lượng
+    public function getProductsByCategory($categoryId)
+    {
+        // Ép kiểu $limit thành số nguyên để đảm bảo an toàn
+
+        // Sử dụng LIMIT trực tiếp trong câu truy vấn
+        $query = "SELECT * FROM san_phams WHERE danh_muc_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$categoryId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // public function getAllDonHang()
@@ -54,19 +66,22 @@ class Products
     //     return $stmt->fetchAll();
     // }
 
-    public function getAllBinhLuan()
+
+    // Lấy thông tin sản phẩm
+    public function getProductDetails($product_id)
     {
-        $query = "SELECT * FROM gui_danh_gia";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll();
+        global $pdo;
+        $stmt = $pdo->prepare("SELECT * FROM san_phams WHERE id = ?");
+        $stmt->execute([$product_id]);
+        return $stmt->fetch();
     }
 
-    public function getAllNguoiDung()
+    // Lấy thông tin chi tiết sản phẩm (màu, kích thước, v.v.)
+    public function getProductDetailsForView($product_id)
     {
-        $query = "SELECT * FROM nguoi_dung";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
+        global $pdo;
+        $stmt = $pdo->prepare("SELECT * FROM chi_tiet_san_phams WHERE san_pham_id = ?");
+        $stmt->execute([$product_id]);
         return $stmt->fetchAll();
     }
 }

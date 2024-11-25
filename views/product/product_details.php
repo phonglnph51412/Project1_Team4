@@ -1,88 +1,67 @@
+<!DOCTYPE html>
 <html>
 
 <head>
-    <title>
-        Prime - Product Page
-    </title>
+    <title><?php echo htmlspecialchars($product['ten_san_pham']); ?> - Product Details</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="http://localhost/Duan1/Project1_Team4/assets/css/product/product_details.css">
+    <link rel="stylesheet" href="http://localhost/Duan1/Project1_Team4/assets/css/product/product_details.css?v=<?= time(); ?>">
 </head>
 
 <body>
-    <header class="header">
-        <div class="logo">
-            Prime
-        </div>
-        <nav>
-            <a href="#">
-                Home
-            </a>
-            <a href="#">
-                Products
-            </a>
-            <a href="#">
-                About Us
-            </a>
-            <a href="#">
-                Article
-            </a>
-            <a href="#">
-                Contact
-            </a>
-        </nav>
-        <div class="icons">
-            <a href="#">
-                <i class="fas fa-search">
-                </i>
-            </a>
-            <a href="#">
-                <i class="fas fa-user">
-                </i>
-            </a>
-            <a href="#">
-                <i class="fas fa-shopping-cart">
-                </i>
-            </a>
-        </div>
-    </header>
+
+    <?php require_once './views/layout/header.php'; ?>
+
     <div class="container">
+        <!-- Hình ảnh và thông tin cơ bản -->
         <div class="product-image">
-            <img alt="Nike Cortez Leather" height="400" src="https://storage.googleapis.com/a1aa/image/46pJhL4hzuLfKKjsc8v5ClBOtOuxLBzBpRJOm8PIRcxk8R5JA.jpg" width="400" />
+            <img alt="<?php echo htmlspecialchars($product['ten_san_pham']); ?>" height="400"
+                src="<?php echo htmlspecialchars($product['hinh_anh']); ?>" width="400" />
+            <h3>Product description</h3>
+            <p><?php echo htmlspecialchars($product['mo_ta']); ?></p>
         </div>
         <div class="product-details">
             <h1>
-                Nike Cortez Leather
+                <?php echo htmlspecialchars($product['ten_san_pham']); ?>
             </h1>
             <div class="price">
-                1000.00$
+                <?php echo number_format($product['gia_ban'], 0, ',', '.'); ?> VND
             </div>
+
+
+            <!-- Màu sắc -->
             <div class="colors">
-                <img alt="Color 1" height="60" src="https://giayxshop.vn/wp-content/uploads/2022/06/z5442264909753_24969d985c65eca6bdf2e8561c4e2926.jpg" width="60" />
-                <img alt="Color 2" height="60" src="https://storage.googleapis.com/a1aa/image/hMj41JCiHm6oNZu0ZLAGbMqvKByNZE2g4T7YPvDHqwnz8o8E.jpg" width="60" />
-                <img alt="Color 3" height="60" src="https://storage.googleapis.com/a1aa/image/LxYHveLyaxRDGa87K8BhFF1OAusUdLu7jJGe83KOrNHJzjyTA.jpg" width="60" />
-                <img alt="Color 4" height="60" src="https://storage.googleapis.com/a1aa/image/VYA1fe8cLZtsK0dEbowF9shfCTBHQkcyfOGBolxb3GUuMPKPB.jpg" width="60" />
+                <h3>Colors:</h3>
+                <?php foreach ($productDetails as $detail): ?>
+                    <span class="color-swatch"
+                        style="background-color: <?php echo ($detail['ma_mau_hex']); ?>; 
+                                 display: inline-block; 
+                                 width: 30px; height: 30px; 
+                                 border-radius: 50%; margin-right: 5px;"
+                        onclick="updateStock('<?php echo ($detail['ma_mau_hex']); ?>', 'color')"></span>
+                <?php endforeach; ?>
             </div>
+
+            <!-- Kích thước -->
             <div class="sizes">
-                <button>
-                    00
-                </button>
-                <button>
-                    00
-                </button>
-                <button>
-                    00
-                </button>
-                <button>
-                    00
-                </button>
-                <button>
-                    00
-                </button>
-                <button>
-                    00
-                </button>
+                <h3>Sizes:</h3>
+                <?php foreach ($productDetails as $detail): ?>
+                    <button class="size-button"
+                        onclick="updateStock('<?php echo htmlspecialchars($detail['so_size']); ?>', 'size')">
+                        <?php echo htmlspecialchars($detail['so_size']); ?>
+                    </button>
+                <?php endforeach; ?>
             </div>
+
+            <!-- Số lượng tồn kho -->
+            <div class="stock">
+                <h3>Stock:</h3>
+                <ul id="stock-list">
+                    <!-- Số lượng sẽ được cập nhật bằng JavaScript -->
+                </ul>
+            </div>
+
+            <!-- Nút thêm vào giỏ hàng -->
             <div class="buttons">
                 <button class="add-to-cart">
                     Add to cart
@@ -93,88 +72,51 @@
             </div>
         </div>
     </div>
-    <footer class="footer">
-        <div class="column">
-            <h3>
-                Prime
-            </h3>
-            <p>
-                Providing world-leading language certification
-            </p>
-            <div class="social-icons">
-                <a href="#">
-                    <i class="fab fa-facebook-f">
-                    </i>
-                </a>
-                <a href="#">
-                    <i class="fab fa-twitter">
-                    </i>
-                </a>
-                <a href="#">
-                    <i class="fab fa-instagram">
-                    </i>
-                </a>
-                <a href="#">
-                    <i class="fab fa-linkedin-in">
-                    </i>
-                </a>
-            </div>
-        </div>
-        <div class="column">
-            <h3>
-                You need support
-            </h3>
-            <p>
-                0000 1133
-            </p>
-            <p>
-                Address: Nam Tu Liem, Hanoi
-            </p>
-            <p>
-                Email: support@prime.com
-            </p>
-        </div>
-        <div class="column">
-            <h3>
-                Registration Guide
-            </h3>
-            <a href="#">
-                Home
-            </a>
-            <a href="#">
-                Introduction
-            </a>
-            <a href="#">
-                Courses
-            </a>
-            <a href="#">
-                Contact
-            </a>
-            <a href="#">
-                User Guide
-            </a>
-        </div>
-        <div class="column">
-            <h3>
-                Customer Support
-            </h3>
-            <a href="#">
-                Home
-            </a>
-            <a href="#">
-                Introduction
-            </a>
-            <a href="#">
-                Courses
-            </a>
-            <a href="#">
-                Contact
-            </a>
-            <a href="#">
-                User Guide
-            </a>
-        </div>
-    </footer>
+
+    <?php require_once './views/layout/footer.php'; ?>
+
+    <script>
+        // Dữ liệu về màu sắc, kích thước và tồn kho
+        const productDetails = <?php echo json_encode($productDetails); ?>;
+
+        // Lưu trữ lựa chọn hiện tại của người dùng
+        let selectedColor = null;
+        let selectedSize = null;
+
+        // Cập nhật thông tin stock khi chọn màu sắc hoặc kích thước
+        function updateStock(value, type) {
+            if (type === 'color') {
+                selectedColor = value;
+            } else if (type === 'size') {
+                selectedSize = value;
+            }
+
+            // Tìm kiếm trong dữ liệu để hiển thị số lượng tồn kho tương ứng
+            const stockList = document.getElementById('stock-list');
+            stockList.innerHTML = ''; // Xóa danh sách cũ
+
+            let foundStock = false; // Biến kiểm tra xem có tìm thấy dữ liệu tồn kho hay không
+
+            productDetails.forEach(detail => {
+                if ((selectedColor === null || detail.ma_mau_hex === selectedColor) &&
+                    (selectedSize === null || detail.so_size === selectedSize)) {
+
+                    const stockItem = document.createElement('li');
+                    stockItem.textContent = `Màu: ${detail.ten_mau}, Size: ${detail.so_size}, Số lượng: ${detail.so_luong}`;
+                    stockList.appendChild(stockItem);
+                    foundStock = true; // Đã tìm thấy kết quả, cập nhật flag
+                }
+            });
+
+            // Nếu không tìm thấy dữ liệu tồn kho, hiển thị số lượng là 0
+            if (!foundStock) {
+                const stockItem = document.createElement('li');
+                stockItem.textContent = 'Số lượng: 0';
+                stockList.appendChild(stockItem);
+            }
+        }
+    </script>
+
 </body>
 
 </html>

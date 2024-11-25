@@ -1,106 +1,59 @@
 <?php
+require_once './models/Cart.php';
+require_once './models/Products.php';
 
-class CartController
+class CartController 
 {
-    public $modelCart;
-
-    public function __construct()
+    public function viewCart()
     {
-        $this->modelCart = new Cart();
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start(); // Khởi tạo session nếu chưa có
-        }
+        require_once './views/cart/cart.php';
     }
-
-    // Hiển thị trang cart
-
-
     public function viewPay()
     {
         require_once './views/cart/pay.php';
     }
-
-    // Thêm sản phẩm vào giỏ hàng
     public function addToCart()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Kiểm tra nếu có thông tin sản phẩm và màu sắc, kích thước được chọn
+        if (isset($_POST['product_id'], $_POST['color'], $_POST['size'], $_POST['quantity'])) {
             $product_id = $_POST['product_id'];
+            $color = $_POST['color'];
+            $size = $_POST['size'];
             $quantity = $_POST['quantity'];
 
-            $product = $this->modelCart->getProductById($product_id);
-
-            if ($product) {
-                if (!isset($_SESSION['cart'])) {
-                    $_SESSION['cart'] = array();
-                }
-
-                $found = false;
-                foreach ($_SESSION['cart'] as &$item) {
-                    if ($item['id'] == $product_id) {
-                        $item['quantity'] += $quantity;
-                        $found = true;
-                        break;
-                    }
-                }
-
-                if (!$found) {
-                    $cartItem = array(
-                        'id' => $product_id,
-                        'name' => $product['ten'],
-                        'price' => $product['gia'],
-                        'quantity' => $quantity
-                    );
-                    array_push($_SESSION['cart'], $cartItem);
-                }
-
-
-                header('Location: ./');
+            // Kiểm tra người dùng đã đăng nhập chưa
+            if (!isset($_SESSION['user_id'])) {
+                header("Location: /login"); // Chuyển đến trang đăng nhập nếu chưa đăng nhập
                 exit;
             }
+
+            $user_id = $_SESSION['user_id'];
+
+            // Tạo giỏ hàng nếu chưa có
+            $cart = new Cart();
+            $cart->addProductToCart($user_id, $product_id, $color, $size, $quantity);
+
+            echo "Product added to cart!";
         }
     }
 
-
-    // Hiển thị giỏ hàng
-    public function viewCart()
+    public function buyNow()
     {
-        if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
-            require_once './views/gioHangTrong.php';
-        } else {
-            $cartItems = $_SESSION['cart'];
-            require_once './views/gioHang.php';
-        }
-    }
+        // Chuyển đến trang thanh toán
+        if (isset($_GET['product_id'], $_GET['color'], $_GET['size'])) {
+            $product_id = $_GET['product_id'];
+            $color = $_GET['color'];
+            $size = $_GET['size'];
 
-    // Xóa sản phẩm khỏi giỏ hàng
-    public function removeFromCart()
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $product_id = $_POST['product_id'];
-
-            foreach ($_SESSION['cart'] as $key => $item) {
-                if ($item['id'] == $product_id) {
-                    unset($_SESSION['cart'][$key]);
-                    break;
-                }
+            // Kiểm tra người dùng đã đăng nhập chưa
+            if (!isset($_SESSION['user_id'])) {
+                header("Location: /login");
+                exit;
             }
 
-            header('Location: ./?act=viewCart');
+            // Tạo giỏ hàng và lưu thông tin thanh toán
+            header("Location: /checkout?product_id=$product_id&color=$color&size=$size");
             exit;
         }
     }
-
-    // Xóa toàn bộ giỏ hàng
-    public function clearCart()
-    {
-        unset($_SESSION['cart']);
-        header('Location: ./');
-        exit;
-    }
 }
-
-
-
-
-
-?>

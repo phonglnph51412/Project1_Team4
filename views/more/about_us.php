@@ -4,68 +4,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="http://localhost/Duan1/Project1_Team4/assets/css/more/about_us.css">
+    <meta name="description" content="Prime Shoe Store cung cấp giày thời trang cao cấp với chất lượng hàng đầu, phù hợp với mọi phong cách. Mua giày thể thao, giày công sở, giày casual tại cửa hàng của chúng tôi.">
+    <meta name="keywords" content="giày thời trang, giày cao cấp, giày thể thao, giày công sở, giày casual, cửa hàng giày">
+    <meta name="author" content="Prime Shoe Store">
+    <meta property="og:title" content="Giới Thiệu - Prime Shoe Store">
+    <meta property="og:description" content="Tìm hiểu về Prime Shoe Store, nơi cung cấp các sản phẩm giày thời trang và chất lượng cao.">
+    <meta property="og:image" content="URL_Ảnh_Đại_Cho_Mạng_Xã_Hội">
+    <meta property="og:url" content="http://localhost/Duan1/Project1_Team4/about-us">
+    <title>Giới Thiệu về Prime Shoe Store</title>
+    <link rel="stylesheet" href="http://localhost/Duan1/Project1_Team4/assets/css/more/about_us.css?v=<?= time(); ?>">
 </head>
 
 <body>
+    <?php require_once './views/layout/header.php' ?>
+
     <div class="container">
-        <div class="header">
-            <h2>Prime</h2>
-            <h1>
-                About us
-            </h1>
-        </div>
-        <div class="content">
+        <section class="about-us">
+            <h1>Giới Thiệu về Prime Shoe Store</h1>
+            <p>
+                Prime Shoe Store là một trong những cửa hàng giày hàng đầu tại Việt Nam, chuyên cung cấp các sản phẩm giày thời trang chất lượng cao cho mọi lứa tuổi và nhu cầu. Chúng tôi cam kết mang đến cho khách hàng những đôi giày vừa thời trang vừa thoải mái, giúp bạn tự tin thể hiện phong cách cá nhân.
+            </p>
+            <p>
+                Với phương châm <strong>"Chất lượng định hình phong cách"</strong>, Prime không chỉ chú trọng vào thiết kế đẹp mắt mà còn đảm bảo sự bền bỉ và thoải mái trong từng sản phẩm. Chúng tôi cung cấp đa dạng các loại giày, từ giày thể thao năng động, giày công sở lịch lãm, đến giày casual thoải mái cho những buổi đi chơi.
+            </p>
+            <p>
+                Tại Prime, mỗi đôi giày không chỉ là một sản phẩm thời trang mà còn là một phần của câu chuyện về phong cách sống. Chúng tôi hiểu rằng, đôi giày bạn chọn sẽ đi cùng bạn trong mọi bước đi của cuộc sống, từ những ngày làm việc năng động đến những buổi hẹn hò thư giãn.
+            </p>
+            <p>
+                Các sản phẩm của Prime được sản xuất từ chất liệu cao cấp, kỹ thuật gia công tỉ mỉ, đảm bảo không chỉ đẹp mà còn bền vững qua thời gian. Hãy cùng Prime khám phá bộ sưu tập giày phù hợp với từng phong cách và nhu cầu của bạn!
+            </p>
+            <h2>Vì sao nên chọn Prime Shoe Store?</h2>
             <ul>
-                <li>
-                    Website bán giày Prime mang đến cho bạn những đôi giày thời trang, hiện đại và chất lượng hàng đầu. Với phương châm "Chất lượng định hình phong cách", Prime không chỉ tập trung vào thiết kế mà còn chú trọng đến sự thoải mái và độ bền của từng sản phẩm.
-                </li>
-                <li>
-                    Mỗi đôi giày đều được gia công tỉ mỉ từ những chất liệu cao cấp, giúp nâng tầm phong cách và độ bền của bạn cho từng bước đi mỗi ngày dài.
-                </li>
-                <li>
-                    Tại Prime, chúng tôi hiểu rằng mỗi bước đi đều là một câu chuyện. Chính vì vậy, chúng tôi cam kết mang đến những sản phẩm đa dạng từ giày thể thao năng động, giày công sở lịch lãm đến giày casual thoải mái, phù hợp với mọi phong cách và nhu cầu sử dụng.
-                </li>
-                <li>
-                    Hãy cùng Prime tự tin bước đi và khẳng định cá tính của chính mình!
-                </li>
+                <li>Giày thời trang với thiết kế hiện đại, tinh tế</li>
+                <li>Chất liệu cao cấp, bền bỉ, thân thiện với người sử dụng</li>
+                <li>Đảm bảo sự thoải mái và phong cách trong mỗi bước đi</li>
+                <li>Cam kết giá trị sản phẩm với chất lượng vượt trội</li>
+                <li>Chế độ bảo hành, đổi trả linh hoạt, dịch vụ chăm sóc khách hàng tận tâm</li>
             </ul>
-        </div>
-        <div class="comments-section">
-            <h2>
-                5 comment
-            </h2>
-            <div class="sort-by">
-                <label for="sort">
-                    Sort by:
-                </label>
-                <select id="sort">
-                    <option value="oldest">
-                        Oldest
-                    </option>
-                    <option value="newest">
-                        Newest
-                    </option>
-                </select>
-            </div>
-            <div class="comment">
-                <img alt="User avatar" height="40" src="https://storage.googleapis.com/a1aa/image/IM1bY68lAzbiNxpalr7i6umyCANWeZr5CfZKgAr1lAeem7JPB.jpg" width="40" />
-                <div class="comment-text">
-                    Add a comment...
-                </div>
-            </div>
-            <div class="add-comment">
-                <input placeholder="Add a comment..." type="text" />
-                <button type="button">
-                    Post
-                </button>
-            </div>
-        </div>
-       
-            <?php require_once '../layout/footer.php' ?>
-        </div>
+            <p>
+                Hãy đến với Prime Shoe Store để khám phá bộ sưu tập giày thời trang cao cấp và tìm cho mình những đôi giày phù hợp với phong cách riêng biệt. Prime Shoe Store tự hào là người bạn đồng hành trong hành trình khẳng định cá tính của bạn.
+            </p>
+        </section>
     </div>
+
+    <?php require_once './views/layout/footer.php' ?>
 </body>
 
 </html>

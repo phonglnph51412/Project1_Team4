@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable">
 
@@ -29,7 +28,7 @@
 
     <div class="auth-page-wrapper pt-5">
         <!-- auth page bg -->
-        <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
+        <!-- <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
             <div class="bg-overlay"></div>
 
             <div class="shape">
@@ -37,7 +36,7 @@
                     <path d="M 0,36 C 144,53.6 432,123.2 720,124 C 1008,124.8 1296,56.8 1440,40L1440 140L0 140z"></path>
                 </svg>
             </div>
-        </div>
+        </div> -->
 
         <!-- auth page content -->
         <div class="auth-page-content">
@@ -47,10 +46,11 @@
                         <div class="text-center mt-sm-5 mb-4 text-white-50">
                             <div>
                                 <a href="index.html" class="d-inline-block auth-logo">
-                                    <img src="https://img3.thuthuatphanmem.vn/uploads/2019/09/30/logo-shop-quan-ao-nam_111916701.jpg" alt="" height="80px" style = "border-radius: 20px">
+                                    <!-- <h2 style="font-weight: 600; font: size 400px;"><a href="./" style="text-decoration: none; color:black"><span class="highlight">P</span>rime</a></h2> -->
+                                    <!-- <img src="https://img3.thuthuatphanmem.vn/uploads/2019/09/30/logo-shop-quan-ao-nam_111916701.jpg" alt="" height="80px" style = "border-radius: 20px"> -->
                                 </a>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -63,29 +63,29 @@
                             <div class="card-body p-4">
                                 <div class="text-center mt-2">
                                     <h5 class="text-primary">Welcome Back !</h5>
-                                    <p class="text-muted">Đăng Nhập Quản Trị  </p>
+                                    <p class="text-muted">Đăng Nhập Quản Trị </p>
                                 </div>
                                 <div class="p-2 mt-4">
-                                <?php if(isset($_SESSION['errors'])) { ?>
-                                    <p class="text-danger text-center" style="font-weight: bold;">
-                                        <?php 
-                                        if (is_array($_SESSION['errors'])) {
-                                           
-                                            foreach ($_SESSION['errors'] as $error) {
-                                                echo $error . "<br>";
+                                    <?php if (isset($_SESSION['errors'])) { ?>
+                                        <p class="text-danger text-center" style="font-weight: bold;">
+                                            <?php
+                                            if (is_array($_SESSION['errors'])) {
+
+                                                foreach ($_SESSION['errors'] as $error) {
+                                                    echo $error . "<br>";
+                                                }
+                                            } else {
+
+                                                echo $_SESSION['errors'];
                                             }
-                                        } else {
-                                           
-                                            echo $_SESSION['errors'];
-                                        }
-                                        ?>
-                                    </p>
-                                <?php } else { ?>
-                                    <p class="login-box-msg text-center" style="color: red; font-size: 17px;">
-                                        Vui Lòng Đăng Nhập
-                                    </p>
-                                <?php } ?>
-                                    <form action=" <?= BASE_URL_ADMIN . '?act=check-login-admin' ?>"method="POST">
+                                            ?>
+                                        </p>
+                                    <?php } else { ?>
+                                        <p class="login-box-msg text-center" style="color: red; font-size: 17px;">
+                                            Vui Lòng Đăng Nhập
+                                        </p>
+                                    <?php } ?>
+                                    <form action=" <?= BASE_URL_ADMIN . '?act=check-login-admin' ?>" method="POST">
 
                                         <div class="mb-3">
                                             <label for="username" class="form-label">Email</label>
@@ -97,19 +97,19 @@
                                         </div>
 
                                         <div class="mb-3">
-                                           
+
                                             <label class="form-label" for="password-input">Password</label>
-                                          
-                                                <input type="password" class="form-control pe-5 password-input" placeholder="Enter password" id="password-input" name="password">
-                                                <span class="text-danger">
+
+                                            <input type="password" class="form-control pe-5 password-input" placeholder="Enter password" id="password-input" name="password">
+                                            <span class="text-danger">
                                                 <?= !empty($_SESSION['errors']['password']) ? $_SESSION['errors']['password'] : '' ?>
 
-                                                 </span>
-                                               
+                                            </span>
+
                                         </div>
-                                        
+
                                         <div class="mt-4">
-                                            <button class="btn btn-success w-100" type="submit">Dăng Nhập</button>
+                                            <button class="btn btn-success w-100" type="submit">Đăng Nhập</button>
                                         </div>
 
                                     </form>
@@ -119,7 +119,7 @@
                         </div>
                         <!-- end card -->
 
-                       
+
 
                     </div>
                 </div>
@@ -130,7 +130,7 @@
         <!-- end auth page content -->
 
         <!-- footer -->
-       
+
         <!-- end Footer -->
     </div>
     <!-- end auth-page-wrapper -->

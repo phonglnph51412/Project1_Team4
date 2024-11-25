@@ -7,7 +7,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Quan Tri | NN Shop</title>
+    <title>Quản lý tài khoản | PRIME shoes Shop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -45,7 +45,7 @@
                 <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
-                                <h4 class="mb-sm-0">Tai khoan quan tri</h4>
+                                <h4 class="mb-sm-0">Quản lý tài khoản</h4>
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
@@ -79,20 +79,20 @@
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">STT</th>
-                                                        <th scope="col">Ho ten</th>
+                                                        <th scope="col">Họ tên</th>
                                                         <th scope="col">Email</th>
                                                         <th scope="col">SDT</th>
                                                         
                                                        
-                                                        <th scope="col">Mat khau</th>
-                                                        <th scope="col">Chuc vu id</th>
-                                                        <th scope="col">Dia chi </th>
+                                                        <th scope="col">Mật khẩu</th>
+                                                        <th scope="col">Chức vụ</th>
+                                                        <th scope="col">Địa chỉ</th>
                                                        
                                                          <th scope="col">Avatar</th>
-                                                        <th scope="col">Ngay sinh</th>
-                                                        <th scope="col">Trang thai</th>
+                                                        <th scope="col">Sinh nhật</th>
+                                                        <th scope="col">Trạng thái</th>
                                                         
-                                                         <th scope="col">Thao tac</th>
+                                                         <th scope="col">Thao tác</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -111,7 +111,7 @@
                                                         <td><?= $quanTri['dia_chi'] ?></td>
                                                         <td>
                                                             <img src="<?= BASE_URL . $quanTri['avata'] ?>"style="width: 50px" alt=""
-                                                            onerror="this.onerror=null;  this.src='https:img.pikbest.com/wp/202345/cat-dog-pet-and-pets-in-real-pictures-wallpapers_9596134.jpg!w700wp' "
+                                                            
                                                             >
                                                            
                                                         </td>
@@ -121,11 +121,11 @@
                                                             <?php
                                                                 if ($quanTri['trang_thai'] == 1){
                                                             ?>
-                                                                <span class="badge bg-success">Hoat Dong</span>
+                                                                <span class="badge bg-success">Hoạt động</span>
                                                             <?php
                                                              }else{
                                                             ?>
-                                                                <span class="badge bg-danger">Khong Hoat Dong</span>
+                                                                <span class="badge bg-danger">Không hoạt động</span>
 
                                                             <?php
                                                                 }

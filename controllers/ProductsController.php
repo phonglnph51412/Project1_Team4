@@ -12,20 +12,30 @@ class ProductsController
         }
     }
 
-    public function index()
+    public function productsList()
     {
-        $listDanhMuc = $this->modelProducts->getAllDanhMuc();
-        $listProducts = $this->modelProducts->getAllProducts(); // Lấy danh sách sản phẩm
-        // $listDonHang = $this->modelProducts->getAllDonHang();
-        $listBinhLuan = $this->modelProducts->getAllBinhLuan();
-        $listNguoiDung = $this->modelProducts->getAllNguoiDung();
-        require_once './views/index.php'; // Hiển thị danh sách sản phẩm
+        $listDanhMuc = $this->modelProducts->getAllCategories();
+        $listProducts = $this->modelProducts->getAllProducts();
+        $categories = $this->modelProducts->getAllCategories();
+        $products = [];
+
+        $categories = $this->modelProducts->getAllCategories();
+
+        // Nếu không có id trong URL, mặc định lấy danh mục id = 1
+        $categoryId = isset($_GET['id']) ? (int)$_GET['id'] : 1;
+
+        // Lấy tối đa 5 sản phẩm theo danh mục
+        $products = $this->modelProducts->getProductsByCategory($categoryId);
+       
+
+        require_once './views/product/products.php'; // Hiển thị danh sách sản phẩm
     }
 
-    public function listDanhMuc()
-    {
-        $listDanhMuc = $this->modelProducts->getAllDanhMuc();
-        require_once './views/admin.php';
-    }
+    // public function listDanhMuc()
+    // {
+    //     $categories  = $this->modelProducts->getAllDanhMuc();
+    //     require_once './views/admin.php';
+    // }
+    
 
 }

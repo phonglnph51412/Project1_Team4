@@ -44,7 +44,7 @@ body {
 }
 
 .logo .highlight {
-    color: var(--secondary-color);
+    color: #000080;
 }
 
 .nav {
@@ -247,13 +247,6 @@ body {
     transform: scale(1.05);
 }
 
-/* Footer */
-.footer {
-    text-align: center;
-    padding: 20px;
-    background-color: var(--primary-color);
-    color: var(--btn-text-color);
-}
 
 
 /* Our Brands - tiêu đề */

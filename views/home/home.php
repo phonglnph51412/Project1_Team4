@@ -15,25 +15,9 @@
 </head>
 
 <body>
+    <?php require_once './views/layout/header.php'; ?>
     <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="logo">
-                <h2 style="font-weight: 600;"><a href="./" style="text-decoration: none; color:black"><span class="highlight">P</span>rime</a></h2>
-            </div>
-            <nav class="nav">
-                <a href="#">Home</a>
-                <a href="./?act=view-cart">Products</a>
-                <a href="#">About Us</a>
-                <!-- <a href="#">Support</a> -->
-                <a href="#">Contact</a>
-            </nav>
-            <div class="icons">
-                <a href="#"><img src="https://cdn-icons-png.flaticon.com/128/54/54481.png" alt="Search Icon"></a>
-                <a href="#"><img src="https://cdn-icons-png.flaticon.com/128/2211/2211008.png" alt="Profile Icon"></a>
-                <a href="#"><img src="https://cdn-icons-png.flaticon.com/128/3024/3024605.png" alt="Notification Icon"></a>
-            </div>
-        </header>
+
 
         <!-- Hero Section -->
         <section class="hero">
@@ -74,10 +58,12 @@
 
             <div class="product-list">
                 <?php if (!empty($products)): ?>
-                    <!-- <h3>Products</h3> -->
                     <?php foreach ($products as $product): ?>
                         <div class="product-item">
-                            <img src="<?php echo htmlspecialchars($product['hinh_anh']); ?>" alt="Product Image">
+                            <!-- Thêm liên kết bao quanh hình ảnh -->
+                            <a href="./?act=product-detail&id=<?= $product['id']; ?>">
+                                <img src="<?php echo htmlspecialchars($product['hinh_anh']); ?>" alt="Product Image">
+                            </a>
                             <p><?php echo htmlspecialchars($product['ten_san_pham']); ?></p>
                             <span><?php echo htmlspecialchars(number_format($product['gia_ban'], 0, ',', '.')); ?> VND</span>
                         </div>
@@ -86,6 +72,7 @@
                     <p>No products found. Please select a brand.</p>
                 <?php endif; ?>
             </div>
+
         </section>
 
         <!-- Featured Section -->
@@ -124,10 +111,11 @@
         </section>
 
         <!-- Footer -->
-        <footer class="footer">
-            <?php require_once './views/layout/footer.php'; ?>
-        </footer>
+
+
+
     </div>
+    <?php require_once './views/layout/footer.php'; ?>
     <script src="http://localhost/Duan1/Project1_Team4/assets/js/home.js"></script>
 </body>
 

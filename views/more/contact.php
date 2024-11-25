@@ -5,20 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Shoe Store</title>
-    <link rel="stylesheet" href="http://localhost/Duan1/Project1_Team4/assets/css/more/contact.css">
+    <link rel="stylesheet" href="http://localhost/Duan1/Project1_Team4/assets/css/more/contact.css?v=<?= time(); ?>">
 </head>
 
 <body>
-    
+    <?php require_once './views/layout/header.php' ?>
     <main class="container">
-    <?php require_once '../layout/header.php' ?>    
+
         <div class="row">
             <!-- Contact Information -->
             <div class="col-6 contact-info">
                 <h2>Our Store</h2>
-                <p><strong>Address:</strong> 123 Shoe Street, Sneaker City</p>
-                <p><strong>Phone:</strong> +1 234 567 890</p>
-                <p><strong>Email:</strong> support@shoestore.com</p>
+                <p><strong>Address:</strong> Quoc Oai, Ha Noi, Viet Nam</p>
+                <p><strong>Phone:</strong> 0000 1133</p>
+                <p><strong>Email:</strong> support@prime.vn</p>
                 <h3>Opening Hours</h3>
                 <ul>
                     <li>Monday - Friday: 9:00 AM - 8:00 PM</li>
@@ -48,9 +48,9 @@
                 </form>
             </div>
         </div>
-    <?php require_once '../layout/footer.php' ?>    
+
     </main>
-    
+    <?php require_once './views/layout/footer.php' ?>
 
 </body>
 
