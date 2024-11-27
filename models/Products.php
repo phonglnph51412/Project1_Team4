@@ -84,4 +84,14 @@ class Products
         $stmt->execute([$product_id]);
         return $stmt->fetchAll();
     }
+
+    // Tìm kiếm sản phẩm theo từ khóa
+    public function searchProducts($searchQuery)
+    {
+        $query = "SELECT * FROM san_phams WHERE ten_san_pham LIKE :searchQuery";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':searchQuery', '%' . $searchQuery . '%', PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

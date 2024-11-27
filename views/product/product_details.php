@@ -15,14 +15,14 @@
     <div class="container">
         <!-- Hình ảnh và thông tin cơ bản -->
         <div class="product-image">
-            <img alt="<?php echo htmlspecialchars($product['ten_san_pham']); ?>" height="400"
-                src="<?php echo htmlspecialchars($product['hinh_anh']); ?>" width="400" />
+            <img alt="<?php echo ($product['ten_san_pham']); ?>" height="400"
+                src="<?php echo ($product['hinh_anh']); ?>" width="400" />
             <h3>Product description</h3>
-            <p><?php echo htmlspecialchars($product['mo_ta']); ?></p>
+            <p><?php echo ($product['mo_ta']); ?></p>
         </div>
         <div class="product-details">
             <h1>
-                <?php echo htmlspecialchars($product['ten_san_pham']); ?>
+                <?php echo ($product['ten_san_pham']); ?>
             </h1>
             <div class="price">
                 <?php echo number_format($product['gia_ban'], 0, ',', '.'); ?> VND
@@ -47,8 +47,8 @@
                 <h3>Sizes:</h3>
                 <?php foreach ($productDetails as $detail): ?>
                     <button class="size-button"
-                        onclick="updateStock('<?php echo htmlspecialchars($detail['so_size']); ?>', 'size')">
-                        <?php echo htmlspecialchars($detail['so_size']); ?>
+                        onclick="updateStock('<?php echo ($detail['so_size']); ?>', 'size')">
+                        <?php echo ($detail['so_size']); ?>
                     </button>
                 <?php endforeach; ?>
             </div>
@@ -60,16 +60,31 @@
                     <!-- Số lượng sẽ được cập nhật bằng JavaScript -->
                 </ul>
             </div>
+            <!-- Số lượng mua-->
+            <div class="sizes">
+                <h3>Quantity:</h3>
 
-            <!-- Nút thêm vào giỏ hàng -->
-            <div class="buttons">
-                <button class="add-to-cart">
-                    Add to cart
-                </button>
-                <button class="buy-now">
-                    Buy now
-                </button>
+                <!-- <input type="number" value="1" > -->
+
             </div>
+
+            <form action="./?act=add-to-cart" method="POST" id="addToCartForm">
+                <!-- Lưu thông tin sản phẩm vào các hidden input -->
+                <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
+                <input type="hidden" name="ten_san_pham" value="<?php echo ($product['ten_san_pham']); ?>">
+                <input type="hidden" name="gia_ban" value="<?php echo $product['gia_ban']; ?>">
+                <input type="hidden" name="hinh_anh" value="<?php echo $product['hinh_anh']; ?>">
+                <!-- <input type="hidden" name="mau_sac" id="selectedColorInput" value=""> -->
+                <!-- <input type="hidden" name="kich_thuoc" id="selectedSizeInput" value=""> -->
+                <input type="hidden" name="so_luong" id="quantityInputHidden" value="1" min=1 max=10>
+
+                <!-- Nút thêm vào giỏ hàng -->
+                <div class="buttons">
+                    <button type="submit" class="add-to-cart" id="addToCartBtn">Add to cart</button>
+                    <button type="submit" class="buy-now" formaction="index.php?act=buyNow" id="buyNowBtn">Buy now</button>
+                </div>
+            </form>
+
         </div>
     </div>
 

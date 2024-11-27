@@ -163,3 +163,27 @@ body {
     color: #000080;
     /* Màu khi hover */
 }
+/* Tùy chỉnh kích thước và vị trí input */
+.search-input {
+    width: 150px;
+    /* Độ rộng của input */
+    height: 30px;
+    /* Chiều cao của input */
+    padding: 5px;
+    /* Khoảng cách bên trong */
+    border: 1px solid #ccc;
+    /* Viền input */
+    border-radius: 3px;
+    /* Bo tròn các góc */
+    margin-right: 5px;
+    /* Khoảng cách giữa input và nút */
+    display: none;
+    /* Ban đầu ẩn input */
+    transition: all 0.3s ease;
+    /* Hiệu ứng khi input hiển thị */
+}
+
+/* Khi input được hiển thị */
+.search-input.show {
+    display: block;
+}

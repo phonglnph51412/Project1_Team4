@@ -16,12 +16,19 @@
         <aside class="sidebar">
             <div class="brand-logos">
                 <ul>
+                    <li>
+                        <button class="<?= !isset($_GET['id']) ? 'active' : ''; ?>">
+                            <a href="?act=view-products">All</a>
+                        </button>
+                    </li>
+
                     <?php foreach ($categories as $category): ?>
                         <li>
                             <!-- Sửa href để đảm bảo tham số id được truyền đúng -->
                             <button class="<?= isset($_GET['id']) && $_GET['id'] == $category['id'] ? 'active' : ''; ?>">
+
                                 <a href="?act=view-products&id=<?= $category['id']; ?>">
-                                    <?= htmlspecialchars($category['ten_danh_muc']); ?>
+                                    <?= ($category['ten_danh_muc']); ?>
                                 </a>
                             </button>
                         </li>
@@ -34,10 +41,16 @@
         <main class="main-content">
             <div class="filters">
                 <button>FILTER</button>
+                <?php if (isset($_GET['q']) && trim($_GET['q']) !== '') { ?>
+                    <h2>Search results for: "<?= ($_GET['q']); ?>"</h2>
+                <?php } ?>
+
+
                 <select>
                     <option>PRICE</option>
                 </select>
             </div>
+
 
             <div class="product-grid">
                 <?php if (!empty($products)): ?>
@@ -45,10 +58,10 @@
                         <div class="product-card">
                             <!-- Liên kết tới chi tiết sản phẩm -->
                             <a href="./?act=product-detail&id=<?= $product['id']; ?>">
-                                <img src="<?= htmlspecialchars($product['hinh_anh']); ?>" alt="Product Image">
+                                <img src="<?= ($product['hinh_anh']); ?>" alt="Product Image">
                             </a>
                             <div class="name">
-                                <?= htmlspecialchars($product['ten_san_pham']); ?>
+                                <?= ($product['ten_san_pham']); ?>
                             </div>
                             <div class="price">
                                 <?= number_format($product['gia_ban'], 0, ',', '.'); ?> VND
@@ -62,11 +75,11 @@
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <p>No products found. Please select a brand.</p>
+                    <p>No products found for your search.</p>
                 <?php endif; ?>
             </div>
-
         </main>
+
     </div>
 
     <?php require_once './views/layout/footer.php'; ?>

@@ -62,10 +62,10 @@
                         <div class="product-item">
                             <!-- Thêm liên kết bao quanh hình ảnh -->
                             <a href="./?act=product-detail&id=<?= $product['id']; ?>">
-                                <img src="<?php echo htmlspecialchars($product['hinh_anh']); ?>" alt="Product Image">
+                                <img src="<?php echo ($product['hinh_anh']); ?>" alt="Product Image">
                             </a>
-                            <p><?php echo htmlspecialchars($product['ten_san_pham']); ?></p>
-                            <span><?php echo htmlspecialchars(number_format($product['gia_ban'], 0, ',', '.')); ?> VND</span>
+                            <p><?php echo ($product['ten_san_pham']); ?></p>
+                            <span><?php echo (number_format($product['gia_ban'], 0, ',', '.')); ?> VND</span>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>

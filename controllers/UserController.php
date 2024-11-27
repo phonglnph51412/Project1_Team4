@@ -1,5 +1,5 @@
 <?php
-class AuthController
+class UserController
 {
     private $userModel;
 
@@ -31,6 +31,7 @@ class AuthController
                 if ($email == $user['email'] && $pass == $user['mat_khau']) {
                     // session_start();
                     $_SESSION['email'] = $email;
+                    $_SESSION['user_id'] = $user['id'];
                     if ($user['chuc_vu_id'] == 2) {
                         // var_dump($user); die();
 
@@ -50,5 +51,10 @@ class AuthController
         session_start();
         session_destroy();
         header('Location: http://localhost/Duan1/Project1_Team4/');
+    }
+
+
+    public function myCart(){
+        require_once './views/cart/my_oders.php';
     }
 }

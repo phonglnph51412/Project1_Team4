@@ -13,10 +13,11 @@
 
     <div class="container">
         <h1>Thanh Toán</h1>
-        <form action="#" method="post" class="payment-form">
+        <form action="./?act=process-payment" method="post" class="payment-form">
 
             <!-- Thông tin giao hàng -->
             <section class="shipping-info">
+
                 <h2>Thông Tin Giao Hàng</h2>
                 <div class="form-group">
                     <label for="full-name">Họ và tên</label>
