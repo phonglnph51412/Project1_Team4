@@ -17,6 +17,7 @@ require_once 'controllers/TaiKhoanController.php';
 require_once 'controllers/LienHeController.php';
 require_once 'controllers/SanPhamController.php';
 require_once 'controllers/DangNhapController.php';
+require_once './controllers/ThongkeControler.php';
 
 
 // Require toàn bộ file Models
@@ -27,6 +28,7 @@ require_once 'models/TinTuc.php';
 require_once 'models/LienHe.php';
 require_once 'models/SanPham.php';
 require_once 'models/DangNhap.php';
+require_once './models/ThongKe.php';
 
 
 // Route
@@ -113,4 +115,5 @@ match ($act) {
      'login-admin' => (new DangNhapController())->formlogin(),
      'check-login-admin' => (new DangNhapController())->login(),
      'log-out' => (new DangNhapController())->logout(),
+     'thongke' => (new ThongKeController())->trangThaiDonHang(),
 };
