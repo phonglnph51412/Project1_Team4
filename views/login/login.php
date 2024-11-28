@@ -40,7 +40,9 @@
 
         <div class="social-login">
           <button type="button" class="facebook-login">Facebook</button>
-          <button type="button" class="google-login">Google</button>
+          <a href="?act=dang-ki">
+          <button type="button" class="google-login">Đăng kí </button>
+          </a>
         </div>
 
         <a href="#" class="forgot-link">Forgot Password / Register</a>
