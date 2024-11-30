@@ -158,9 +158,81 @@ public function updateCart(){
 
 }
 
-public function viewPay(){
-    require_once './views/cart/pay.php';
-}
+    public function showPaymentPage()
+    {
+
+
+        // Kiểm tra người dùng đã đăng nhập chưa
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: ./?act=login');
+            exit();
+        }
+
+        $user_id = $_SESSION['user_id'];
+
+        // Lấy thông tin người dùng
+        $userModel = new User();
+        $user_info = $userModel->getUserById($user_id);
+
+        // Lấy thông tin giỏ hàng
+        $cartModel = new Cart();
+        $cart_items = $cartModel->getCartByUserId($user_id);
+        // var_dump($cart_items); die;
+
+        $total_amount = array_sum(array_column($cart_items, 'thanh_tien'));
+
+        // Gửi dữ liệu đến view
+        require_once './views/cart/pay.php';
+    }
+
+
+    public function processPayment()
+    {
+        // Kiểm tra xem người dùng đã đăng nhập chưa
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: ./?act=login');
+            exit();
+        }
+
+        $userId = $_SESSION['user_id'];
+
+        // Lấy thông tin từ form
+        $fullName = $_POST['full_name'];
+        $phoneNumber = $_POST['phone_number'];
+        $address = $_POST['address'];
+        $paymentMethod = $_POST['payment_method'];
+
+        // Lấy thông tin giỏ hàng
+        $cartModel = new Cart();
+        $cartItems = $cartModel->getCartByUserId($userId);
+
+        if (empty($cartItems)) {
+            // Nếu giỏ hàng trống, chuyển hướng về trang giỏ hàng
+            header('Location: ./?act=cart');
+            exit();
+        }
+
+        // Tính tổng số tiền
+        $totalAmount = 0;
+        foreach ($cartItems as $item) {
+            $totalAmount += $item['thanh_tien'];
+        }
+
+        // Lưu thông tin vào bảng `don_hangs`
+        $orderId = $cartModel->createOrder($userId, $fullName, $phoneNumber, $address, $totalAmount, $paymentMethod);
+
+        // Lưu thông tin vào bảng `chi_tiet_don_hangs`
+        foreach ($cartItems as $item) {
+            $cartModel->createOrderDetail($orderId, $item['ten_san_pham'], $item['gia_ban'], $item['so_luong'], $item['thanh_tien']);
+        }
+
+        // Xóa giỏ hàng sau khi thanh toán thành công
+        $cartModel->clearCart($userId);
+
+        // Chuyển hướng đến trang xác nhận
+        header('Location: ./?act=payment-success');
+    }
+
 
 
 

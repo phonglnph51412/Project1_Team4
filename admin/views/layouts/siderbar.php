@@ -96,7 +96,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarTrangThai" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarTrangThai">
-                        <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Trạng thái đơn hàng</span>
+                        <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Quản lý đơn hàng</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarTrangThai">
                         <ul class="nav nav-sm flex-column">
@@ -105,11 +105,11 @@
                                     Danh sách
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="?act=form-%20them-trang-thai" class="nav-link" data-key="t-nestable-list">
                                     Thêm mới
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </li>

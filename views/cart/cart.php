@@ -40,9 +40,16 @@
                                 </td>
                                 <td><?= number_format($item['price'], 0, '.', '.'); ?></td>
                                 <td>
-                                    <input type="number" class="form-control soluong" value="<?= $item['so_luong']; ?>" min="1" max="10">
+                                    <input
+                                        type="number"
+                                        class="form-control soluong"
+                                        value="<?= $item['so_luong']; ?>"
+                                        min="1"
+                                        max="10"
+                                        onchange="validateQuantity(this, <?= $key; ?>)">
                                     <input type="hidden" value="<?= $key; ?>">
                                 </td>
+
                                 <td><?= number_format($thanh_tien, 0, '.', '.'); ?></td>
                                 <td>
                                     <a href="./?act=del-product&del-key=<?= $key; ?>">
@@ -134,6 +141,24 @@
             });
         });
     </script>
+    <script>
+        function validateQuantity(input, key) {
+            const min = parseInt(input.min);
+            const max = parseInt(input.max);
+            let value = parseInt(input.value);
+
+            if (value < min) {
+                alert('Số lượng không được nhỏ hơn ' + min);
+                input.value = min;
+            } else if (value > max) {
+                alert('Số lượng không được vượt quá ' + max);
+                input.value = max;
+            }
+
+            // (Optional) Gửi yêu cầu AJAX để cập nhật số lượng trên server.
+        }
+    </script>
+
 </body>
 
 </html>

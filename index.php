@@ -39,9 +39,9 @@ match ($act) {
     'add-to-cart' => (new CartController())->addToCart(),
     'update-cart' => (new CartController())->updateCart(),
     'my-cart' => (new CartController)->viewCart(),
-    'pay' => (new CartController)->viewPay(),
+    'pay' => (new CartController)->showPaymentPage(),
     'my-oder' => (new UserController())->myCart(),
-    'process-paymen' => (new CartController)->viewPay(),
+    // 'process-paymen' => (new CartController)->viewPay(),
 
     'about-us' => (new HomeController())->aboutUs(),
     'contact' => (new HomeController())->contact(),

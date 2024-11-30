@@ -22,7 +22,7 @@ class TrangThaiController
 
     //hàm hiển thị form thêm
     public function create_trang_thai(){
-        require_once './views/trangthai/create_trang_thai.php';
+        // require_once './views/trangthai/create_trang_thai.php';
 
     }
 

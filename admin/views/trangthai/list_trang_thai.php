@@ -133,9 +133,9 @@
                                                                         <form action="?act=xoa-trang-thai" method="POST"
                                                                         onsubmit="return confirm('Bạn co đồng ý không')">
                                                                         <input type="hidden" name="trang_thai_id" value="<?= $trangThai['id'] ?>">
-                                                                        <button type="submit" class="link-danger fs-15" style="border: none; background: none;">
+                                                                        <!-- <button type="submit" class="link-danger fs-15" style="border: none; background: none;">
                                                                             <i class="ri-delete-bin-line"></i>
-                                                                      </button>
+                                                                      </button> -->
                                                                         </form>
                                                                     </div>
                                                                 </td>
