@@ -9,41 +9,44 @@ class Cart
     }
 
     // Lấy các sản phẩm trong giỏ hàng
-    public function getCartItems($gioHangId)
+    public function getCartItemsByUserId($userId)
     {
-        // Truy vấn lấy thông tin sản phẩm trong giỏ hàng
         $query = "
-            SELECT sp.ten_san_pham, sp.gia_ban, ctg.so_luong, ctg.gia_mua, 
-                   ctsp.mau_sac_id, ctsp.kich_thuoc_id, sp.id as product_id
-            FROM chi_tiet_gio_hangs ctg
-            JOIN san_pham_chi_tiet ctsp ON ctg.chi_tiet_san_pham_id = ctsp.id
-            JOIN san_pham sp ON ctsp.san_pham_id = sp.id
-            WHERE ctg.gio_hang_id = :gioHangId
-        ";
-
+        SELECT 
+            ctgh.id AS cart_item_id,
+            sp.id AS product_id,
+            sp.ten_san_pham AS name,
+            sp.hinh_anh,
+            sp.gia_ban AS price,
+            ctgh.so_luong,
+            (ctgh.so_luong * sp.gia_ban) AS thanh_tien
+        FROM chi_tiet_gio_hangs ctgh
+        INNER JOIN san_phams sp ON ctgh.san_pham_id = sp.id
+        INNER JOIN gio_hangs gh ON ctgh.gio_hang_id = gh.id
+        WHERE gh.nguoi_dung_id = ?
+    ";
         $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':gioHangId', $gioHangId);
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Trả về danh sách các sản phẩm trong giỏ
+        $stmt->execute([$userId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     // Tính tổng giá trị giỏ hàng
-    public function getTotalPrice($gioHangId)
-    {
-        $query = "
-            SELECT SUM(ctg.so_luong * ctg.gia_mua) AS total_price
-            FROM chi_tiet_gio_hangs ctg
-            WHERE ctg.gio_hang_id = :gioHangId
-        ";
+    // public function getTotalPrice($gioHangId)
+    // {
+    //     $query = "
+    //         SELECT SUM(ctg.so_luong * ctg.gia_mua) AS total_price
+    //         FROM chi_tiet_gio_hangs ctg
+    //         WHERE ctg.gio_hang_id = :gioHangId
+    //     ";
 
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':gioHangId', $gioHangId);
-        $stmt->execute();
+    //     $stmt = $this->db->prepare($query);
+    //     $stmt->bindParam(':gioHangId', $gioHangId);
+    //     $stmt->execute();
 
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result['total_price'] ?? 0;
-    }
+    //     $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    //     return $result['total_price'] ?? 0;
+    // }
 
     // user
     public function getUser()
@@ -54,27 +57,60 @@ class Cart
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     // Thêm sản phẩm vào giỏ hàng
-    public function addProductToCart($gioHangId, $sanPhamId, $soLuong)
+    public function addProductToCart($userId, $productId, $soLuong)
     {
-        // Kiểm tra xem sản phẩm đã có trong giỏ chưa
+        // Kiểm tra xem người dùng đã có giỏ hàng chưa
+        $query = "SELECT id FROM gio_hangs WHERE nguoi_dung_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$userId]);
+        $cart = $stmt->fetch();
+
+        // Nếu chưa có giỏ hàng, tạo mới
+        if (!$cart) {
+            $query = "INSERT INTO gio_hangs (nguoi_dung_id) VALUES (?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute([$userId]);
+            $cartId = $this->db->lastInsertId();
+        } else {
+            $cartId = $cart['id'];
+        }
+
+        // Kiểm tra xem sản phẩm đã có trong chi tiết giỏ hàng chưa
         $query = "SELECT id, so_luong FROM chi_tiet_gio_hangs WHERE gio_hang_id = ? AND san_pham_id = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$gioHangId, $sanPhamId]);
+        $stmt->execute([$cartId, $productId]);
         $result = $stmt->fetch();
 
         if ($result) {
-            // Nếu sản phẩm đã có, cập nhật số lượng
-            $query = "UPDATE chi_tiet_gio_hangs SET so_luong = so_luong + ? WHERE id = ?";
+            // Nếu sản phẩm đã có, cập nhật số lượng và thành tiền
+            $query = "UPDATE chi_tiet_gio_hangs 
+                  SET so_luong = so_luong + ?, thanh_tien = thanh_tien + (? * (SELECT gia_ban FROM san_phams WHERE id = ?))
+                  WHERE id = ?";
             $stmt = $this->db->prepare($query);
-            $stmt->execute([$soLuong, $result['id']]);
+            $stmt->execute([$soLuong, $soLuong, $productId, $result['id']]);
         } else {
-            // Nếu chưa có, thêm mới
-            $query = "INSERT INTO chi_tiet_gio_hangs (gio_hang_id, san_pham_id, so_luong, gia_mua) 
-                      VALUES (?, ?, ?, (SELECT gia_ban FROM san_phams WHERE id = ?))";
+            // Nếu chưa có, thêm mới với giá trị thanh_tien
+            $query = "INSERT INTO chi_tiet_gio_hangs (gio_hang_id, san_pham_id, so_luong, gia_ban, thanh_tien) 
+                  VALUES (?, ?, ?, (SELECT gia_ban FROM san_phams WHERE id = ?), ? * (SELECT gia_ban FROM san_phams WHERE id = ?))";
             $stmt = $this->db->prepare($query);
-            $stmt->execute([$gioHangId, $sanPhamId, $soLuong, $sanPhamId]);
+            $stmt->execute([$cartId, $productId, $soLuong, $productId, $soLuong, $productId]);
         }
     }
+
+
+
+    // Phương thức thêm chi tiết sản phẩm vào giỏ hàng
+    // public function addProductToCart($cartId, $productId, $quantity, $price)
+    // {
+    //     // Tính thành tiền
+    //     $totalPrice = $quantity * $price;
+
+    //     $sql = "INSERT INTO chi_tiet_gio_hangs (gio_hang_id, san_pham_id, so_luong, gia_ban, thanh_tien)
+    //             VALUES (?, ?, ?, ?, ?)";
+    //     $stmt = $this->db->prepare($sql);
+    //     $stmt->execute([$cartId, $productId, $quantity, $price, $totalPrice]);
+    // }
+
 
     public function pay($gioHangId, $paymentMethod)
     {
@@ -173,18 +209,23 @@ class Cart
     public function getCartByUserId($user_id)
     {
         $sql = "
-        SELECT sp.ten_san_pham, sp.gia_ban, ctgh.so_luong, (sp.gia_ban * ctgh.so_luong) AS thanh_tien
+        SELECT sp.id AS san_pham_id, sp.ten_san_pham, sp.gia_ban, ctgh.so_luong, (sp.gia_ban * ctgh.so_luong) AS thanh_tien
         FROM chi_tiet_gio_hangs ctgh
         JOIN san_phams sp ON ctgh.san_pham_id = sp.id
-        WHERE ctgh.gio_hang_id = (SELECT id FROM gio_hangs WHERE nguoi_dung_id = ?)
+        WHERE ctgh.gio_hang_id = (
+            SELECT id 
+            FROM gio_hangs 
+            WHERE nguoi_dung_id = ? 
+            LIMIT 1
+        )
     ";
 
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$user_id]);
 
-        // Lấy tất cả kết quả dưới dạng mảng
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     public function clearCart($userId)
     {
@@ -198,28 +239,29 @@ class Cart
         $stmt->execute();
     }
 
-    public function createOrderDetail($orderId, $productName, $productPrice, $quantity, $subTotal)
+    public function createOrderDetail($orderId, $productName, $price, $quantity, $totalPrice)
     {
         $query = "
         INSERT INTO chi_tiet_don_hangs (don_hang_id, ten_san_pham, gia_ban, so_luong, thanh_tien)
-        VALUES (:orderId, :productName, :productPrice, :quantity, :subTotal)
+        VALUES (:orderId, :productName, :price, :quantity, :totalPrice)
     ";
-
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':orderId', $orderId);
+
         $stmt->bindParam(':productName', $productName);
-        $stmt->bindParam(':productPrice', $productPrice);
+        $stmt->bindParam(':price', $price);
         $stmt->bindParam(':quantity', $quantity);
-        $stmt->bindParam(':subTotal', $subTotal);
+        $stmt->bindParam(':totalPrice', $totalPrice);
 
         $stmt->execute();
     }
 
-    public function createOrder($userId, $fullName, $phoneNumber, $address, $totalAmount, $paymentMethod)
+
+    public function createOrder($userId, $fullName, $phoneNumber, $address, $totalAmount, $paymentMethod, $orderStatusId = 1)
     {
         $query = "
-        INSERT INTO don_hangs (nguoi_dung_id, ho_ten, so_dien_thoai, dia_chi, tong_tien, phuong_thuc_thanh_toan, ngay_tao)
-        VALUES (:userId, :fullName, :phoneNumber, :address, :totalAmount, :paymentMethod, NOW())
+        INSERT INTO don_hangs (nguoi_dung_id, ho_ten, so_dien_thoai, dia_chi, tong_tien, phuong_thuc_thanh_toan, trang_thai_id, ngay_tao)
+        VALUES (:userId, :fullName, :phoneNumber, :address, :totalAmount, :paymentMethod, :orderStatusId, NOW())
     ";
 
         $stmt = $this->db->prepare($query);
@@ -229,12 +271,159 @@ class Cart
         $stmt->bindParam(':address', $address);
         $stmt->bindParam(':totalAmount', $totalAmount);
         $stmt->bindParam(':paymentMethod', $paymentMethod);
+        $stmt->bindParam(':orderStatusId', $orderStatusId);
 
         $stmt->execute();
 
         // Trả về ID của đơn hàng vừa tạo
         return $this->db->lastInsertId();
     }
+
+
+    // Phương thức kiểm tra và lấy giỏ hàng của người dùng
+    public function getCartIdByUserId($userId)
+    {
+        $sql = "SELECT id FROM gio_hangs WHERE nguoi_dung_id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$userId]);
+        return $stmt->fetchColumn();
+    }
+
+    // Phương thức tạo giỏ hàng mới nếu chưa có
+    public function createCart($userId)
+    {
+        $sql = "INSERT INTO gio_hangs (nguoi_dung_id) VALUES (?)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$userId]);
+        return $this->db->lastInsertId();  // Trả về ID giỏ hàng mới
+    }
+
+
+    public function updateQuantity($cartItemId, $quantity)
+    {
+        $sql = "UPDATE chi_tiet_gio_hangs 
+            SET so_luong = :so_luong, thanh_tien = price * :so_luong 
+            WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':so_luong', $quantity, PDO::PARAM_INT);
+        $stmt->bindValue(':id', $cartItemId, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+
+    public function getCartSummary($userId)
+    {
+        // Lấy thông tin tổng giỏ hàng của người dùng, tính tổng tiền
+        $sql = "SELECT SUM(ctg.thanh_tien) AS tong
+            FROM chi_tiet_gio_hangs ctg
+            INNER JOIN gio_hangs gh ON ctg.cart_id = gh.cart_id
+            WHERE gh.user_id = :user_id";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+
+
+    // public function deleteCartItem($cartItemId)
+    // {
+    //     $sql = "DELETE FROM chi_tiet_gio_hangs WHERE id = :id";
+    //     $stmt = $this->db->prepare($sql);
+    //     $stmt->bindValue(':id', $cartItemId, PDO::PARAM_INT);
+    //     return $stmt->execute();
+    // }
+
+
+    // CartController.php
+
+    // Lấy các sản phẩm trong giỏ hàng của người dùng
+    public function getCartItems($userId)
+    {
+        $sql = "
+        SELECT 
+            ctgh.id AS cart_item_id, 
+            sp.ten_san_pham AS name, 
+            sp.gia_ban AS price, 
+            sp.hinh_anh AS hinh_anh, 
+            ctgh.so_luong AS so_luong, 
+            (ctgh.so_luong * sp.gia_ban) AS thanh_tien
+        FROM chi_tiet_gio_hangs ctgh
+        JOIN san_phams sp ON ctgh.san_pham_id = sp.id
+        JOIN gio_hangs gh ON ctgh.gio_hang_id = gh.id
+        WHERE gh.nguoi_dung_id = :nguoi_dung_id
+    ";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['nguoi_dung_id' => $userId]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
+
+
+    public function deleteProductFromCart($cartItemId)
+    {
+        $query = "DELETE FROM chi_tiet_gio_hangs WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        return $stmt->execute([$cartItemId]);
+    }
+
+    // Lấy tổng giá trị giỏ hàng
+    public function getCartTotal()
+    {
+        $sql = "SELECT SUM(thanh_tien) AS total FROM chi_tiet_gio_hangs";
+        $stmt = $this->db->query($sql);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'];
+    }
+
+    // Cập nhật số lượng sản phẩm trong giỏ
+    public function updateProductQuantity($cartItemId, $quantity)
+    {
+        // Truy vấn để cập nhật số lượng
+        $sql = "UPDATE chi_tiet_gio_hangs SET so_luong = ? WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([$quantity, $cartItemId]);
+    }
+
+    // Lấy danh sách đơn hàng của người dùng theo user_id
+    public function getOrdersByUserId($userId)
+    {
+        // Truy vấn lấy danh sách đơn hàng của người dùng
+        $sql = "
+    SELECT o.id AS order_id, o.ngay_tao AS order_date, o.tong_tien AS total_amount, t.ten_trang_thai AS status, 
+           p.ten_san_pham AS product_name, cd.so_luong AS quantity, cd.gia_ban AS price
+    FROM don_hangs o
+    JOIN chi_tiet_don_hangs cd ON o.id = cd.don_hang_id
+    JOIN san_phams p ON cd.ten_san_pham = p.ten_san_pham
+    JOIN trang_thais t ON o.trang_thai_id = t.id
+    WHERE o.nguoi_dung_id = ?
+    ORDER BY o.ngay_tao DESC
+";
+
+
+        // Chuẩn bị và thực thi truy vấn
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$userId]);
+
+        // Lấy kết quả trả về dưới dạng mảng
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

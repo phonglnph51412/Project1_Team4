@@ -2,74 +2,154 @@
 class CartController
 {
     private $cartModel;
+    private $userId;
 
     public function __construct()
     {
         $this->cartModel = new Cart(); // Khởi tạo mô hình Home
+        
         if (session_status() === PHP_SESSION_NONE) {
             session_start(); // Khởi tạo session nếu chưa có
+            $this->userId = $_SESSION['user_id'];
         }
     }
 
     // Xem giỏ hàng
+    // Hiển thị giỏ hàng
     public function viewCart()
     {
-        // $gioHangId = isset($_SESSION['gioHangId']) ? $_SESSION['gioHangId'] : 1; // Lấy ID giỏ hàng từ session
+        $userId = $_SESSION['user_id'] ?? null; // Kiểm tra nếu người dùng đã đăng nhập
+        if (!$userId) {
+            header('Location: ./?act=login');
+            exit;
+        }
 
-        // // Lấy danh sách các sản phẩm trong giỏ hàng
-        // $cartItems = $this->cartModel->getCartItems($gioHangId);
-
-        // // Tính tổng giá trị giỏ hàng
-        // $totalPrice = $this->cartModel->getTotalPrice($gioHangId);
-
-        // Truyền dữ liệu sang view
-        require_once './views/cart/cart.php';
+        $cartItems = $this->cartModel->getCartItems($userId);
+        require_once './views/cart/cart.php'; // Hiển thị view giỏ hàng
     }
 
-    
+    // Cập nhật số lượng sản phẩm
+    // public function updateCart()
+    // {
+    //     $cartItemId = $_POST['cart_item_id'] ?? null;
+    //     $quantity = $_POST['so_luong'] ?? null;
+
+    //     if (!$cartItemId || !$quantity) {
+    //         echo json_encode(['success' => false, 'message' => 'Dữ liệu không hợp lệ.']);
+    //         return;
+    //     }
+
+    //     if ($this->cartModel->updateCartItem($cartItemId, $quantity)) {
+    //         echo json_encode(['success' => true]);
+    //     } else {
+    //         echo json_encode(['success' => false, 'message' => 'Không thể cập nhật sản phẩm.']);
+    //     }
+    // }
+
+    // // Xóa một sản phẩm khỏi giỏ hàng
+    // public function deleteCartItem()
+    // {
+    //     $cartItemId = $_GET['cart_item_id'] ?? null;
+
+    //     if (!$cartItemId) {
+    //         echo json_encode(['success' => false, 'message' => 'Dữ liệu không hợp lệ.']);
+    //         return;
+    //     }
+
+    //     if ($this->cartModel->deleteCartItem($cartItemId)) {
+    //         echo json_encode(['success' => true]);
+    //     } else {
+    //         echo json_encode(['success' => false, 'message' => 'Không thể xóa sản phẩm.']);
+    //     }
+    // }
+
+    // Xóa toàn bộ giỏ hàng
+    public function clearCart()
+    {
+        $userId = $_SESSION['user_id'] ?? null;
+
+        if (!$userId) {
+            echo json_encode(['success' => false, 'message' => 'Bạn chưa đăng nhập.']);
+            return;
+        }
+
+        if ($this->cartModel->clearCart($userId)) {
+            header('Location: ./?act=view-cart');
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Không thể xóa giỏ hàng.']);
+        }
+    }
+
+
+
 
     // Thêm sản phẩm vào giỏ hàng
     public function addToCart()
-    {   
-        
-        if(!isset($_SESSION['gio_hang'])){
-            $_SESSION['gio_hang'] = array();
+    {
+        // Kiểm tra xem người dùng đã đăng nhập chưa
+        if (!isset($_SESSION['user_id'])) {
+            echo "Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!";
+            header('Location: ./?act=login');
+            exit;
         }
+
+        // Lấy ID người dùng từ session
+        $userId = $_SESSION['user_id'];
+
+        // Khởi tạo session giỏ hàng nếu chưa có
+        if (!isset($_SESSION['gio_hang'])) {
+            $_SESSION['gio_hang'] = [];
+        }
+
+        // Kiểm tra phương thức gửi dữ liệu
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Nhận dữ liệu từ form
-            $productId = $_POST['id'];
-            $productName = $_POST['ten_san_pham'];
-            $price = $_POST['gia_ban'];
-            $hinh_anh = $_POST['hinh_anh'];
-            if(isset($_POST['so_luong'])&& $_POST['so_luong']>0){
-                $so_luong = $_POST['so_luong'];
-            }else{
-                $so_luong = 1;
+            $productId = $_POST['id'] ?? null;
+            $productName = $_POST['ten_san_pham'] ?? null;
+            $price = $_POST['gia_ban'] ?? null;
+            $hinh_anh = $_POST['hinh_anh'] ?? null;
+            $so_luong = isset($_POST['so_luong']) && $_POST['so_luong'] > 0 ? (int)$_POST['so_luong'] : 1;
+            $mau_sac = $_POST['selectedColor'] ?? null;
+            $kich_thuoc = $_POST['selectedSize'] ?? null;
+
+            // Kiểm tra tính hợp lệ của dữ liệu
+            if (!$productId || !$productName || !$price || !$hinh_anh) {
+                echo "Dữ liệu không hợp lệ!";
+                exit;
             }
-            
-            // $color = $_POST['color'];
-            // $size = $_POST['size'];
-            // $quantity = $_POST['quantity'];
-            // Kiểm tra sản phẩm có tồn tại trong giỏ hàng không
-            $check = false;
-            foreach ($_SESSION['gio_hang'] as $key => $value){
-                if($value['id'] == $productId){
-                    $check = true;
-                    $_SESSION['gio_hang'][$key]['so_luong']+=$so_luong;
+
+            // Gọi Model để thêm sản phẩm vào giỏ hàng trong CSDL
+            $cartModel = new Cart();
+            $cartModel->addProductToCart($userId, $productId, $so_luong);
+
+            // Cập nhật session giỏ hàng
+            $productExists = false;
+            foreach ($_SESSION['gio_hang'] as $key => $value) {
+                if ($value['id'] == $productId) {
+                    $productExists = true;
+                    $_SESSION['gio_hang'][$key]['so_luong'] += $so_luong;
+                    break;
                 }
             }
-            if(!$check){
-            $item = array('id' => $productId, 'name' => $productName,'price' => $price, 'hinh_anh' => $hinh_anh, 'so_luong' => $so_luong);
 
-            array_push($_SESSION['gio_hang'], $item);
-            // var_dump($_SESSION['gio_hang']);die;
-
-            
+            // Nếu sản phẩm chưa có trong session giỏ hàng, thêm mới
+            if (!$productExists) {
+                $item = [
+                    'id' => $productId,
+                    'name' => $productName,
+                    'price' => $price,
+                    'hinh_anh' => $hinh_anh,
+                    'so_luong' => $so_luong
+                ];
+                $_SESSION['gio_hang'][] = $item;
             }
-            header('Location: ./?act=my-cart');
 
+            // Điều hướng về trang giỏ hàng
+            header('Location: ./?act=my-cart');
+            exit;
         }
     }
+
     // Xoá sản phẩm khỏi giỏ hàng
     public function removeFromCart()
     {
@@ -108,55 +188,20 @@ class CartController
     }
 }
    
-public function emtyCart(){
-        if (isset($_GET['act']) && $_GET['act'] == 'emty-cart') {
-            // Nếu có tham số del-key, gọi phương thức xoá sản phẩm
-            if (isset($_GET['del-cart'])&& ($_GET['del-cart'])==1) {
-                $_SESSION['gio_hang'] = [];
-                header("Location: ./?act=my-cart");
-            } 
-}
+// public function emtyCart(){
+//         if (isset($_GET['act']) && $_GET['act'] == 'emty-cart') {
+//             // Nếu có tham số del-key, gọi phương thức xoá sản phẩm
+//             if (isset($_GET['del-cart'])&& ($_GET['del-cart'])==1) {
+//                 $_SESSION['gio_hang'] = [];
+//                 header("Location: ./?act=my-cart");
+//             } 
+// }
 
     
-}
+// }
 
-public function updateCart(){
-        // session_start();
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            error_log(print_r($_POST, true)); // Ghi lại POST data
-            $key = isset($_POST['key']) && is_numeric($_POST['key']) ? (int)$_POST['key'] : null;
-            $so_luong = isset($_POST['so_luong']) && is_numeric($_POST['so_luong']) && $_POST['so_luong'] > 0 ? (int)$_POST['so_luong'] : 1;
 
-            if ($key !== null && isset($_SESSION['gio_hang'][$key])) {
-                // Cập nhật số lượng sản phẩm
-                $_SESSION['gio_hang'][$key]['so_luong'] = $so_luong;
-
-                // Tính lại tổng giá trị giỏ hàng
-                $tong = 0;
-                foreach ($_SESSION['gio_hang'] as $item) {
-                    $tong += $item['price'] * $item['so_luong'];
-                }
-
-                // Thành tiền cho sản phẩm đã thay đổi
-                $thanh_tien = $_SESSION['gio_hang'][$key]['price'] * $so_luong;
-
-                // Trả về kết quả JSON
-                echo json_encode([
-                    'debug' => $_POST,
-                    'success' => true,
-                    'thanh_tien' => number_format($thanh_tien, 0, '.', '.'),
-                    'tong' => number_format($tong, 0, '.', '.')
-                ]);
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Invalid product']);
-            }
-
-            exit;
-        }
-        
-
-}
 
     public function showPaymentPage()
     {
@@ -208,7 +253,7 @@ public function updateCart(){
 
         if (empty($cartItems)) {
             // Nếu giỏ hàng trống, chuyển hướng về trang giỏ hàng
-            header('Location: ./?act=cart');
+            header('Location: ./?act=my-cart');
             exit();
         }
 
@@ -219,7 +264,17 @@ public function updateCart(){
         }
 
         // Lưu thông tin vào bảng `don_hangs`
-        $orderId = $cartModel->createOrder($userId, $fullName, $phoneNumber, $address, $totalAmount, $paymentMethod);
+        $orderId = $cartModel->createOrder($userId, $fullName,
+                $phoneNumber,
+                $address,
+                $totalAmount,
+                $paymentMethod,
+                1
+            );
+        $orderId = $cartModel->createOrder($userId, $fullName, $phoneNumber, $address, $totalAmount, $paymentMethod, 1);
+
+
+
 
         // Lưu thông tin vào bảng `chi_tiet_don_hangs`
         foreach ($cartItems as $item) {
@@ -232,6 +287,140 @@ public function updateCart(){
         // Chuyển hướng đến trang xác nhận
         header('Location: ./?act=payment-success');
     }
+
+    public function paymentSuccess(){
+        require_once './views/cart/payment_success.php';
+    }
+
+
+
+    // // Cập nhật số lượng sản phẩm
+    // public function updateCart()
+    // {
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //         $cartItemId = $_POST['cart_item_id'];
+    //         $quantity = $_POST['so_luong'];
+
+    //         if ($cartItemId && $quantity > 0) {
+    //             $this->cartModel->updateCartItemQuantity($cartItemId, $quantity, $this->userId);
+
+    //             // Cập nhật tổng giỏ hàng sau khi thay đổi
+    //             $total = $this->cartModel->getCartTotal($this->userId);
+    //             echo json_encode([
+    //                 'success' => true,
+    //                 'message' => 'Cập nhật thành công.',
+    //                 'tong' => number_format($total, 0, '.', '.')
+    //             ]);
+    //         } else {
+    //             echo json_encode(['success' => false, 'message' => 'Dữ liệu không hợp lệ.']);
+    //         }
+    //         exit();
+    //     }
+    // }
+
+    // // Xóa sản phẩm khỏi giỏ hàng
+    // public function deleteProduct()
+    // {
+    //     if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['cart_item_id'])) {
+    //         $cartItemId = $_GET['cart_item_id'];
+
+    //         if ($cartItemId) {
+    //             $this->cartModel->deleteCartItem($cartItemId, $this->userId);
+
+    //             // Tính lại tổng giỏ hàng
+    //             $total = $this->cartModel->getCartTotal($this->userId);
+    //             echo json_encode([
+    //                 'success' => true,
+    //                 'message' => 'Sản phẩm đã được xoá.',
+    //                 'tong' => number_format($total, 0, '.', '.')
+    //             ]);
+    //         }
+    //         exit();
+    //     }
+    // }
+
+
+    public function deleteProduct()
+    {
+        // Kiểm tra nếu người dùng đã đăng nhập
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: ./?act=login'); // Chuyển hướng nếu chưa đăng nhập
+            exit();
+        }
+
+        $userId = $_SESSION['user_id'];
+        $cartItemId = $_GET['cartItemId'] ?? null;
+
+        if (!$cartItemId) {
+            // Trường hợp không có cartItemId được truyền vào
+            header('Location: ./?act=my-cart');
+            exit();
+        }
+
+        // Gọi phương thức deleteProductFromCart từ model
+        $result = (new Cart())->deleteProductFromCart($cartItemId);
+
+        if ($result) {
+            // Chuyển hướng về giỏ hàng sau khi xóa thành công
+            header('Location: ./?act=my-cart');
+            exit();
+        } else {
+            // Nếu có lỗi xảy ra
+            echo "Không thể xóa sản phẩm. Vui lòng thử lại!";
+        }
+    }
+
+
+    // Hàm xử lý cập nhật số lượng sản phẩm trong giỏ
+    public function updateCart()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cart_item_id']) && isset($_POST['quantity'])) {
+            $cartItemId = $_POST['cart_item_id'];
+            $quantity = $_POST['quantity'];
+
+            // Kiểm tra số lượng hợp lệ
+            if ($quantity <= 0) {
+                echo "<script>alert('Số lượng phải lớn hơn 0'); window.location='index.php?act=my-cart';</script>";
+                exit();
+            }
+
+            // Cập nhật số lượng trong giỏ hàng
+            $cartModel = new Cart();
+            if ($cartModel->updateProductQuantity($cartItemId, $quantity)) {
+                // Cập nhật thành công, quay lại trang giỏ hàng
+                header("Location: index.php?act=my-cart");
+                exit();
+            } else {
+                echo "<script>alert('Cập nhật không thành công'); window.location='index.php?act=my-cart';</script>";
+            }
+        }
+    }
+
+
+
+    // Hàm hiển thị danh sách đơn hàng của người dùng
+    public function showOrders()
+    {
+        // Lấy thông tin người dùng đang đăng nhập
+        $userId = $_SESSION['user_id'];  // Giả sử bạn lưu user_id trong session sau khi đăng nhập
+
+        // Lấy danh sách đơn hàng từ model
+        $orderModel = new Cart();
+        $orders = $orderModel->getOrdersByUserId($userId);
+
+        // Gọi view để hiển thị danh sách đơn hàng
+        require_once './views/cart/my_orders.php';
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 

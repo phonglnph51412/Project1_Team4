@@ -34,17 +34,25 @@ match ($act) {
     'login' => (new UserController())->login(),
     'logout' => (new UserController())->logout(),
     'view-products' => (new ProductsController())->productsList(),
-    'del-product' => (new CartController())-> handleRequest(),
-    'emty-cart' => (new CartController())-> emtyCart(),
+    // 'emty-cart' => (new CartController())-> emptyCart(),
     'add-to-cart' => (new CartController())->addToCart(),
-    'update-cart' => (new CartController())->updateCart(),
+    // 'update-cart' => (new CartController())->updateCart(),
+    // 'del-product' => (new CartController())->deleteCartItem(),
     'my-cart' => (new CartController)->viewCart(),
     'pay' => (new CartController)->showPaymentPage(),
-    'my-oder' => (new UserController())->myCart(),
+    'process-payment' => (new CartController)->processPayment(),
+    'payment-success' => (new CartController)->paymentSuccess(),
+
+    'my-oder' => (new CartController())->showOrders(),
     // 'process-paymen' => (new CartController)->viewPay(),
 
     'about-us' => (new HomeController())->aboutUs(),
     'contact' => (new HomeController())->contact(),
+
+    'deleteProduct' => (new CartController())->deleteProduct(),
+    'updateCart' => (new CartController())->updateCart(),
+
+
 
 
 

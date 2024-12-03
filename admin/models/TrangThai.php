@@ -11,104 +11,53 @@ class TrangThai
         $this->conn = connectDB();
     }
 
-    //Danh sách trang thái
-    public function getAll(){
-        try {
-            
-            $sql= 'SELECT * FROM trang_thais';
-
-            $stmt = $this->conn->prepare($sql);
-
-            $stmt->execute();
-
-            return  $stmt->fetchAll();
-        } catch (PDOexception $e){
-            echo 'lỗi: ' . $e->getMessage();
-        }
-    }
-
-    //thêm dữ liệu mới vafp csdl
-    public function postData($ten_trang_thai,$trang_thai_tb){
-        try {
-           
-            $sql= 'INSERT INTO trang_thais (ten_trang_thai,trang_thai_tb)
-            VALUES (:ten_trang_thai,:trang_thai_tb)';
-
-            $stmt = $this->conn->prepare($sql);
-
-            //gán gtri vào các tham số
-            $stmt->bindParam(':ten_trang_thai', $ten_trang_thai);
-            $stmt->bindParam(':trang_thai_tb', $trang_thai_tb);
-            $stmt->execute();
-
-            return true;
-        } catch (PDOexception $e){
-            echo 'lỗi: ' . $e->getMessage();
-
-
-
-        }
-        }
-        //lấy thông tin chi tiết
-        public function getDetailData($id){
-            try {
-                
-                $sql= 'SELECT * FROM trang_thais WHERE id = :id';
-    
-                $stmt = $this->conn->prepare($sql);
-                $stmt->bindParam(':id', $id);
-
-                $stmt->execute();
-    
-                return $stmt->fetch();
-            } catch (PDOException $e){
-                echo 'lỗi: ' . $e->getMessage();
-            }
-        }
-
-         //cập nhật dữ liệu mới vafp csdl
-    public function updateData($id,$ten_trang_thai,$trang_thai_tb){
-        try {
-           
-            $sql= 'UPDATE trang_thais SET ten_trang_thai=:ten_trang_thai, trang_thai_tb = :trang_thai_tb WHERE id=:id';
-
-            $stmt = $this->conn->prepare($sql);
-
-            //gán gtri vào các tham số
-            $stmt->bindParam(':id', $id);
-            $stmt->bindParam(':ten_trang_thai', $ten_trang_thai);
-            $stmt->bindParam(':trang_thai_tb', $trang_thai_tb);
-            $stmt->execute();
-
-            return true;
-        } catch (PDOexception $e){
-            echo 'lỗi: ' . $e->getMessage();
-
-
-
-        }
-        }
-//xóa dự liệu trong csdl
-        public function deleteData($id){
-            try {
-                
-                $sql= 'DELETE FROM trang_thais WHERE id = :id';
-    
-                $stmt = $this->conn->prepare($sql);
-                $stmt->bindParam(':id', $id);
-
-                $stmt->execute();
-    
-                return true;
-            } catch (PDOException $e){
-                echo 'lỗi: ' . $e->getMessage();
-            }
-        }
-
-    //Hủy kết nối csdl
-    
-    public function __destruct()
+    // Lấy danh sách đơn hàng
+    public function getAllOrders()
     {
-        $this->conn = null;
+        try {
+            $sql = 'SELECT * FROM don_hangs ORDER BY id DESC';
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            echo 'Lỗi: ' . $e->getMessage();
+            return false;
+        }
     }
+
+    // Cập nhật trạng thái đơn hàng
+    // public function updateOrderStatus($orderId, $newStatus)
+    // {
+    //     try {
+    //         $sql = 'UPDATE don_hangs SET trang_thai = :trang_thai WHERE id = :id';
+    //         $stmt = $this->conn->prepare($sql);
+    //         $stmt->bindParam(':trang_thai', $newStatus);
+    //         $stmt->bindParam(':id', $orderId);
+    //         $stmt->execute();
+    //         return true;
+    //     } catch (PDOException $e) {
+    //         echo 'Lỗi: ' . $e->getMessage();
+    //         return false;
+    //     }
+    // }
+    // // Cập nhật trạng thái đơn hàng
+    public function updateOrderStatus($orderId, $statusId)
+    {
+        $sql = "UPDATE don_hangs SET trang_thai_id = :status_id WHERE id = :order_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':status_id', $statusId, PDO::PARAM_INT);
+        $stmt->bindParam(':order_id', $orderId, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    // Cập nhật trạng thái đơn hàng
+    // public function updateOrderStatus($orderId, $statusId)
+    // {
+    //     $sql = "UPDATE don_hangs SET trang_thai_id = :status_id WHERE id = :order_id";
+    //     $stmt = $this->db->prepare($sql);
+    //     $stmt->bindParam(':status_id', $statusId, PDO::PARAM_INT);
+    //     $stmt->bindParam(':order_id', $orderId, PDO::PARAM_INT);
+    //     return $stmt->execute();
+    // }
+
 }

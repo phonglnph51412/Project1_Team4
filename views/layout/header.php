@@ -45,7 +45,7 @@
 
             <!-- Biểu tượng giỏ hàng -->
             <a href="./?act=my-cart" style="margin-right: 15px;"><img src="https://cdn-icons-png.flaticon.com/128/2211/2211008.png" alt="Cart Icon"></a>
-            <span style="position: absolute; 
+            <!-- <span style="position: absolute; 
                          right: 415px;
                          font-size: 13px;
                          top: 43px;
@@ -56,7 +56,7 @@
                          }else{
                             echo '(0)';
                          }
-                         ?></span>
+                         ?></span> -->
             <!-- Biểu tượng profile -->
             <div class="profile-container">
                 <img src="https://cdn-icons-png.flaticon.com/128/3024/3024605.png" alt="Profile Icon" class="profile">

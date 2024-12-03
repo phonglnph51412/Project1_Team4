@@ -69,21 +69,20 @@
             </div>
 
             <form action="./?act=add-to-cart" method="POST" id="addToCartForm">
-                <!-- Lưu thông tin sản phẩm vào các hidden input -->
-                <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
-                <input type="hidden" name="ten_san_pham" value="<?php echo ($product['ten_san_pham']); ?>">
-                <input type="hidden" name="gia_ban" value="<?php echo $product['gia_ban']; ?>">
-                <input type="hidden" name="hinh_anh" value="<?php echo $product['hinh_anh']; ?>">
-                <!-- <input type="hidden" name="mau_sac" id="selectedColorInput" value=""> -->
-                <!-- <input type="hidden" name="kich_thuoc" id="selectedSizeInput" value=""> -->
+                <input type="hidden" name="id" value="<?= $product['id']; ?>">
+                <input type="hidden" name="ten_san_pham" value="<?= ($product['ten_san_pham']); ?>">
+                <input type="hidden" name="gia_ban" value="<?= $product['gia_ban']; ?>">
+                <input type="hidden" name="hinh_anh" value="<?= $product['hinh_anh']; ?>">
                 <input type="hidden" name="so_luong" id="quantityInputHidden" value="1" min=1 max=10>
+                <!-- Thêm các trường ẩn cho màu sắc và kích thước -->
+                <input type="hidden" name="selectedColor" id="selectedColor" value="">
+                <input type="hidden" name="selectedSize" id="selectedSize" value="">
 
-                <!-- Nút thêm vào giỏ hàng -->
                 <div class="buttons">
                     <button type="submit" class="add-to-cart" id="addToCartBtn">Add to cart</button>
-                    <button type="submit" class="buy-now" formaction="index.php?act=buyNow" id="buyNowBtn">Buy now</button>
                 </div>
             </form>
+
 
         </div>
     </div>
@@ -102,15 +101,17 @@
         function updateStock(value, type) {
             if (type === 'color') {
                 selectedColor = value;
+                document.getElementById('selectedColor').value = selectedColor; // Cập nhật giá trị ẩn
             } else if (type === 'size') {
                 selectedSize = value;
+                document.getElementById('selectedSize').value = selectedSize; // Cập nhật giá trị ẩn
             }
 
-            // Tìm kiếm trong dữ liệu để hiển thị số lượng tồn kho tương ứng
+            // Cập nhật danh sách tồn kho
             const stockList = document.getElementById('stock-list');
-            stockList.innerHTML = ''; // Xóa danh sách cũ
+            stockList.innerHTML = '';
 
-            let foundStock = false; // Biến kiểm tra xem có tìm thấy dữ liệu tồn kho hay không
+            let foundStock = false;
 
             productDetails.forEach(detail => {
                 if ((selectedColor === null || detail.ma_mau_hex === selectedColor) &&
@@ -119,11 +120,10 @@
                     const stockItem = document.createElement('li');
                     stockItem.textContent = `Màu: ${detail.ten_mau}, Size: ${detail.so_size}, Số lượng: ${detail.so_luong}`;
                     stockList.appendChild(stockItem);
-                    foundStock = true; // Đã tìm thấy kết quả, cập nhật flag
+                    foundStock = true;
                 }
             });
 
-            // Nếu không tìm thấy dữ liệu tồn kho, hiển thị số lượng là 0
             if (!foundStock) {
                 const stockItem = document.createElement('li');
                 stockItem.textContent = 'Số lượng: 0';

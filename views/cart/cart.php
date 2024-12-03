@@ -9,19 +9,20 @@
 </head>
 
 <body>
-    <!-- Header của trang, bao gồm logo, menu, vv -->
-    <?php require_once './views/layout/header.php' ?>
+    <!-- Header -->
+    <?php require_once './views/layout/header.php'; ?>
 
     <main class="container">
         <h1>Your Shopping Cart</h1>
 
-        <!-- Giỏ hàng -->
         <div class="cart">
             <div class="cart-items">
                 <table>
                     <thead>
                         <tr>
                             <th>Product</th>
+                            <th>Color</th>
+                            <th>Size</th>
                             <th>Price</th>
                             <th>Quantity</th>
                             <th>Total</th>
@@ -29,136 +30,90 @@
                         </tr>
                     </thead>
                     <tbody id="gio_hang">
-                        <?php $tong = 0; ?>
-                        <?php foreach ($_SESSION['gio_hang'] as $key => $item): ?>
-                            <?php $thanh_tien = $item['price'] * $item['so_luong']; ?>
-                            <?php $tong += $thanh_tien; ?>
+                        <?php
+                        $tong = 0;
+                        // var_dump($cartItems);
+                        if (!empty($cartItems)) {
+                            foreach ($cartItems as $item):
+                                $tong += $item['thanh_tien'];
+                        ?>
+                                <tr>
+                                    <td>
+                                        <img src="<?= $item['hinh_anh']; ?>" alt="Product" style="width: 50px;">
+                                        <span><?= $item['name']; ?></span>
+                                    </td>
+                                    <td>null</td>
+                                    <td>null</td>
+                                    <td><?= number_format($item['price'], 0, '.', '.'); ?></td>
+                                    <td>
+                                        <!-- Form để tự động gửi số lượng khi thay đổi -->
+                                        <form action="./?act=updateCart" method="POST" class="update-cart-form">
+                                            <input type="hidden" name="cart_item_id" value="<?= $item['cart_item_id']; ?>" />
+                                            <input type="number" name="quantity" value="<?= $item['so_luong']; ?>" min="1" max="10" onchange="this.form.submit()" />
+
+                                        </form>
+                                    </td>
+                                    <td class="total-price"><?= number_format($item['thanh_tien'], 0, '.', '.'); ?> VNĐ</td>
+                                    <td>
+                                        <!-- Nút Xóa -->
+                                        <a href="index.php?act=deleteProduct&cartItemId=<?= $item['cart_item_id']; ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">Xóa</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach;
+                        } else { ?>
                             <tr>
-                                <td>
-                                    <img style="width: 50px;" src="<?= $item['hinh_anh']; ?>">
-                                    <span><?= $item['name']; ?></span>
-                                </td>
-                                <td><?= number_format($item['price'], 0, '.', '.'); ?></td>
-                                <td>
-                                    <input
-                                        type="number"
-                                        class="form-control soluong"
-                                        value="<?= $item['so_luong']; ?>"
-                                        min="1"
-                                        max="10"
-                                        onchange="validateQuantity(this, <?= $key; ?>)">
-                                    <input type="hidden" value="<?= $key; ?>">
-                                </td>
-
-                                <td><?= number_format($thanh_tien, 0, '.', '.'); ?></td>
-                                <td>
-                                    <a href="./?act=del-product&del-key=<?= $key; ?>">
-                                        <button class="remove-item">Remove</button>
-                                    </a>
-                                </td>
+                                <td colspan="5">Your cart is empty.</td>
                             </tr>
-                        <?php endforeach; ?>
-
+                        <?php } ?>
                     </tbody>
 
                 </table>
-                <?php if ($_SESSION['gio_hang'] !== []) { ?>
+
+                <!-- Cart Summary -->
+                <div class="cart-summary1">
+                    <h2>Cart Summary</h2>
+                    <div class="cart-summary">
+                        <span>Subtotal</span>
+                        <span><?= number_format($tong, 0, '.', '.'); ?> VNĐ</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Shipping</span>
+                        <span>Free</span>
+                    </div>
+                    <div class="total span">
+                        <span>Total</span>
+                        <span><?= number_format($tong, 0, '.', '.'); ?> VNĐ</span>
+                    </div>
+                    <div class="cart-actions">
+                        <a href="./?act=view-products" class="checkout-btn">Continue Shopping</a>
+                        <a href="./?act=pay" class="checkout-btn">Proceed to Checkout</a>
+                    </div>
+                </div>
+
+                <?php if (!empty($cartItems)) { ?>
                     <button class="remove-item" style="margin-top:20px; height:30px">
-                        <a style="text-decoration: none;
-                    color:white;"
-                            href="./?act=emty-cart&del-cart=1">Remove All</a></button>
-                <?php } else { ?>
-                    <br>
-                    <h2>Emty Cart!</h2> <?php }  ?>
+                        <a style="text-decoration: none; color:white;" href="./?act=emty-cart&del-cart=1">Remove All</a>
+                    </button>
+                <?php } ?>
             </div>
-
-            <!-- Tổng giỏ hàng -->
-            <div class="cart-summary">
-                <h2>Cart Summary</h2>
-                <div class="summary-item">
-                    <span>Subtotal</span>
-                    <span>0 VND</span>
-                </div>
-                <div class="summary-item">
-                    <span>Shipping</span>
-                    <span>Free</span>
-                </div>
-                <div class="summary-item total">
-                    <span>Total</span>
-                    <span><?= number_format($tong, 0, '.', '.') ?> VNĐ</span>
-                </div>
-                <!-- Các tùy chọn -->
-                <div class="cart-actions">
-                    <!-- <button class="continue-shopping">Continue Shopping</button> -->
-                    <a href="./?act=view-products" class="checkout-btn">Continue Shopping</a>
-                    <a href="./?act=pay" class="checkout-btn">Proceed to Checkout</a>
-                </div>
-            </div>
-
         </div>
     </main>
 
-    <?php require_once './views/layout/footer.php' ?>
-    <script>
-        document.querySelectorAll('.remove-item').forEach(button => {
-            button.addEventListener('click', function(event) {
-                if (!confirm("Are you sure you want to remove this item?")) {
-                    event.preventDefault(); // Ngăn chặn hành động xoá nếu chọn "Cancel"
-                }
-            });
-        });
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $("#gio_hang").on("change", ".soluong", function() {
-                var sl = $(this).val();
-                var key = $(this).next().val();
-                var row = $(this).closest("tr");
+    <?php require_once './views/layout/footer.php'; ?>
 
-                $.post("./?act=update-cart", {
-                    so_luong: sl,
-                    key: key
-                }, function(response) {
-                    console.log("Response:", response); // Debug response
-                    try {
-                        var data = JSON.parse(response);
-
-                        if (data.success) {
-                            row.find("td:nth-child(4)").text(data.thanh_tien);
-                            $(".cart-summary .total span:last-child").text(data.tong);
-                        } else {
-                            alert(data.message || "Error updating cart");
-                        }
-                    } catch (e) {
-                        console.error("Parsing Error:", e);
-                        alert("Invalid server response.");
-                    }
-                }).fail(function(xhr, status, error) {
-                    console.error("AJAX Error: ", xhr.responseText);
-                    alert("Failed to update cart. Please try again.");
-                });
-            });
-        });
-    </script>
-    <script>
-        function validateQuantity(input, key) {
-            const min = parseInt(input.min);
-            const max = parseInt(input.max);
-            let value = parseInt(input.value);
-
-            if (value < min) {
-                alert('Số lượng không được nhỏ hơn ' + min);
-                input.value = min;
-            } else if (value > max) {
-                alert('Số lượng không được vượt quá ' + max);
-                input.value = max;
-            }
-
-            // (Optional) Gửi yêu cầu AJAX để cập nhật số lượng trên server.
-        }
-    </script>
 
 </body>
+<script>
+    document.querySelectorAll('input[name="quantity"]').forEach(input => {
+        input.addEventListener('input', function() {
+            if (this.value > 10) {
+                alert('Số lượng không được vượt quá 10!');
+                this.value = 10;
+            }
+        });
+    });
+</script>
+
+
 
 </html>

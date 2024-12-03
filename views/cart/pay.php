@@ -51,6 +51,7 @@
                                 <td><?= number_format($item['gia_ban'], 0, ',', '.'); ?> VND</td>
                                 <td><?= $item['so_luong']; ?></td>
                                 <td><?= number_format($item['thanh_tien'], 0, ',', '.'); ?> VND</td>
+                                
                             </tr>
                         <?php endforeach; ?>
                         <tr class="total-row">

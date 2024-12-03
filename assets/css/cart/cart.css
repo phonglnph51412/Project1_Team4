@@ -1,128 +1,144 @@
-/* Tổng quát cho trang giỏ hàng */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9ec;
-    margin: 0;
-    padding: 0;
-}
-
+/* Main container */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #f9f9f9ec;
+    font-family: Arial, sans-serif;
 }
 
+/* Heading */
 h1 {
     text-align: center;
-    font-size: 32px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    color: #333;
 }
 
-/* Phần giỏ hàng */
-.cart {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
-}
-
-/* Danh sách sản phẩm */
-.cart-items table {
-    width: 500px;
+/* Cart table styling */
+.cart table {
+    width: 100%;
     border-collapse: collapse;
+    margin-bottom: 20px;
 }
 
-.cart-items th,
-.cart-items td {
-    padding: 15px;
+.cart table thead th {
+    background-color: #f5f5f5;
+    padding: 10px;
     text-align: left;
+    border-bottom: 2px solid #ddd;
+}
+
+.cart table tbody td {
+    padding: 10px;
     border-bottom: 1px solid #ddd;
+    vertical-align: middle;
 }
 
-.cart-items th {
-    background-color: #f4f4f4;
-}
-
-.cart-items .product-image {
-    width: 50px;
-    height: 50px;
+.cart table tbody td img {
+    display: inline-block;
     margin-right: 10px;
+    border-radius: 5px;
 }
 
-.cart-items input[type="number"] {
-    width: 50px;
+.cart table tbody td .total-price {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Form and input styles */
+.update-cart-form input[type="number"] {
+    width: 60px;
     padding: 5px;
-    font-size: 16px;
-}
-
-.cart-items button.remove-item {
-    background-color: #ff4747;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
+    text-align: center;
+    border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-.cart-items button.remove-item:hover {
-    background-color: #ff0000;
+/* Buttons */
+.cart-actions .checkout-btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: background-color 0.3s;
 }
 
-/* Phần tóm tắt giỏ hàng */
-.cart-summary {
-    width: 500px;
-    background-color: #fff;
+.cart-actions .checkout-btn:hover {
+    background-color: #0056b3;
+}
+
+.remove-item {
+    display: inline-block;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.remove-item a {
+    color: white;
+}
+
+.remove-item:hover {
+    background-color: #c82333;
+}
+
+/* Cart summary */
+.cart-summary1 {
+    border: 1px solid #ddd;
+    border-radius: 5px;
     padding: 20px;
-    /* border-radius: 8px; */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.cart-summary .summary-item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-.cart-summary .summary-item.total {
-    font-weight: bold;
-    font-size: 18px;
-}
-
-.cart-actions {
-    display: flex;
-    justify-content: space-between;
+    background-color: #f9f9f9;
     margin-top: 20px;
 }
 
-.cart-actions button,
-.cart-actions a {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 16px;
+.cart-summary1 h2 {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: #333;
 }
 
-.cart-actions button:hover,
-.cart-actions a:hover {
-    background-color: #45a049;
+.cart-summary,
+.summary-item,
+.total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 1em;
+    color: #555;
 }
 
-/* Responsive */
-@media screen and (max-width: 768px) {
-    .cart {
-        flex-direction: column;
+.total span {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .cart table thead {
+        display: none;
     }
 
-    .cart-items table {
-        width: 100%;
+    .cart table tbody td {
+        display: block;
+        text-align: right;
+        border: none;
+        padding: 10px 5px;
     }
 
-    .cart-summary {
-        width: 100%;
-        margin-top: 20px;
+    .cart table tbody td img {
+        float: left;
+        margin-right: 10px;
+    }
+
+    .cart-actions .checkout-btn {
+        display: block;
+        margin-bottom: 10px;
     }
 }

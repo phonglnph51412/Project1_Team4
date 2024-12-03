@@ -86,7 +86,7 @@
                                                         <th scope="col">Giá tiền </th>
                                                         <th scope="col">Giá khuyến mãi</th>
                                                         <th scope="col">Ngày nhập</th>
-                                                        <th scope="col">Số lượng</th>
+                                                        <!-- <th scope="col">Số lượng</th> -->
                                                        
                                                         <th scope="col">Mô tả</th>
                                                        
@@ -112,7 +112,7 @@
                                                         <td><?= $sanPham['gia_ban'] ?></td>
                                                         <td><?= $sanPham['gia_khuyen_mai'] ?></td>
                                                         <td><?= $sanPham['ngay_nhap'] ?></td>
-                                                        <td>0</td>
+                                                        <!-- <td>0</td> -->
                                                         <!-- <td><?= $sanPham['so_luong'] ?></td> -->
                                                        
                                                         <td><?= $sanPham['mo_ta'] ?></td>
