@@ -94,4 +94,32 @@ WHERE
         $stmt->execute();
         return $stmt->fetchAll();
     }
+
+    public function addtaiKhoan($ho_ten,$email, $ngay_sinh, $so_dien_thoai, $file_thumb, $mat_khau,$dia_chi, $trang_thai_id,$chuc_vu_id){
+        try {
+            $sql = 'INSERT INTO tai_khoans (ho_ten,email, ngay_sinh, so_dien_thoai, avata, mat_khau,dia_chi, trang_thai,chuc_vu_id)
+             VALUES (:ho_ten,:email, :ngay_sinh, :so_dien_thoai, :avata, :mat_khau,:dia_chi, :trang_thai,:chuc_vu_id)';
+
+            $stmt = $this->db->prepare($sql);
+
+            $stmt->bindParam('ho_ten', $ho_ten);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':ngay_sinh', $ngay_sinh);
+            $stmt->bindParam(':so_dien_thoai', $so_dien_thoai);
+            $stmt->bindParam(':avata', $file_thumb);
+            $stmt->bindParam(':mat_khau', $mat_khau);
+            $stmt->bindParam(':dia_chi', $dia_chi);
+            $stmt->bindParam(':trang_thai', $trang_thai_id);
+            $stmt->bindParam(':chuc_vu_id', $chuc_vu_id);
+
+            $stmt->execute();
+           
+            return true;
+ 
+            
+        } catch (Exception $e) {
+            echo 'Lỗi: ' . $e->getMessage();
+            return false;
+        }
+    }
 }

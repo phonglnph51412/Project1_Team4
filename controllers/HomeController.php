@@ -68,5 +68,37 @@ class HomeController
     {
         require_once './views/more/contact.php';
     }
+
+    public function dangki()
+    {
+        require_once './views/login/dangki.php';
+    }
+    
+
+    public function xldangki()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // var_dump($_POST);die;
+            $ho_ten = $_POST['ho_ten'];
+            $email = $_POST['email'];
+            $ngay_sinh = $_POST['ngay_sinh'];
+            $so_dien_thoai = $_POST['so_dien_thoai'];
+
+            $avata = $_FILES['avata'] ?? null;
+
+            $file_thumb = uploadFile($avata, './uploads/');
+
+            $mat_khau = $_POST['mat_khau'];
+            $dia_chi = $_POST['dia_chi'];
+
+            $trang_thai_id = 1 ;
+            $chuc_vu_id = 2 ;
+
+            $this->modelHome->addtaiKhoan($ho_ten,$email, $ngay_sinh, $so_dien_thoai, $file_thumb, $mat_khau,$dia_chi, $trang_thai_id,$chuc_vu_id);
+
+            header("Location: ?act=/");
+        }
+       
+    }
     
 }

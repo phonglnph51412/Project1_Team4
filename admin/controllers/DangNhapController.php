@@ -60,7 +60,7 @@ class DangNhapController
                 $_SESSION['user_admin'] = $user;
                 // var_dump($_SESSION['user_admin']); die();
 
-                header('Location:' . BASE_URL_ADMIN);
+                header('Location:' . BASE_URL_ADMIN . '?act=thongke');
                 exit();
             } else {
                 // Lỗi lưu vào session
