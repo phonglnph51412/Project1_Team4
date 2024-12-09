@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thanh Toán Thành Công</title>
+    <title>Payment Successful</title>
+    <link rel="stylesheet" href="http://localhost/Duan1/Project1_Team4/assets/css/cart/payment_success.css?v=<?= time(); ?>">
 </head>
 
 <body>
-    <h1>Thanh Toán Thành Công!</h1>
-    <p>Cảm ơn bạn đã mua hàng. Đơn hàng của bạn đã được ghi nhận.</p>
-    <a href="./">Quay lại trang chủ</a>
+    <div class="container">
+        <h1>Order Placed Successfully!</h1>
+        <p>Thank you for your order. Your order has been recorded.</p>
+        <a href="./">Home Page</a>
+        <a href="./?act=my-order">My Orders</a>
+    </div>
+
 </body>
 
 </html>

@@ -56,8 +56,10 @@ class Cart
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+
     // Thêm sản phẩm vào giỏ hàng
-    public function addProductToCart($userId, $productId, $soLuong)
+    public function addProductToCart($userId, $productId, $soLuong, $stock, $selectedColor, $selectedSize)
     {
         // Kiểm tra xem người dùng đã có giỏ hàng chưa
         $query = "SELECT id FROM gio_hangs WHERE nguoi_dung_id = ?";
@@ -66,7 +68,7 @@ class Cart
         $cart = $stmt->fetch();
 
         // Nếu chưa có giỏ hàng, tạo mới
-        if (!$cart) {
+        if (!$cart) { 
             $query = "INSERT INTO gio_hangs (nguoi_dung_id) VALUES (?)";
             $stmt = $this->db->prepare($query);
             $stmt->execute([$userId]);
@@ -90,10 +92,10 @@ class Cart
             $stmt->execute([$soLuong, $soLuong, $productId, $result['id']]);
         } else {
             // Nếu chưa có, thêm mới với giá trị thanh_tien
-            $query = "INSERT INTO chi_tiet_gio_hangs (gio_hang_id, san_pham_id, so_luong, gia_ban, thanh_tien) 
-                  VALUES (?, ?, ?, (SELECT gia_ban FROM san_phams WHERE id = ?), ? * (SELECT gia_ban FROM san_phams WHERE id = ?))";
+            $query = "INSERT INTO chi_tiet_gio_hangs (gio_hang_id, san_pham_id, so_luong, so_luong_ton, gia_ban, thanh_tien, mau_sac, kich_thuoc) 
+                  VALUES (?, ?, ?, ?, (SELECT gia_ban FROM san_phams WHERE id = ?), ? * (SELECT gia_ban FROM san_phams WHERE id = ?), ?, ?)";
             $stmt = $this->db->prepare($query);
-            $stmt->execute([$cartId, $productId, $soLuong, $productId, $soLuong, $productId]);
+            $stmt->execute([$cartId, $productId, $soLuong, $stock, $productId, $soLuong,$productId, $selectedColor, $selectedSize]);
         }
     }
 
@@ -349,6 +351,9 @@ class Cart
             sp.gia_ban AS price, 
             sp.hinh_anh AS hinh_anh, 
             ctgh.so_luong AS so_luong, 
+            ctgh.mau_sac,
+            ctgh.kich_thuoc,
+            ctgh.so_luong_ton,
             (ctgh.so_luong * sp.gia_ban) AS thanh_tien
         FROM chi_tiet_gio_hangs ctgh
         JOIN san_phams sp ON ctgh.san_pham_id = sp.id
@@ -362,6 +367,59 @@ class Cart
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     }
+
+    public function getOrderDetailsById($orderId)
+    {
+        // Truy vấn lấy chi tiết đơn hàng
+        $sql = "
+            SELECT 
+                o.id AS order_id, 
+                o.ngay_tao AS order_date, 
+                o.tong_tien AS total_amount, 
+                o.phuong_thuc_thanh_toan AS pttt,
+                o.ho_ten,
+                o.so_dien_thoai AS sdt,
+                o.dia_chi,
+                t.ten_trang_thai AS status,
+                cd.ten_san_pham AS product_name, 
+                cd.so_luong AS quantity
+            FROM 
+                don_hangs o
+            JOIN 
+                chi_tiet_don_hangs cd ON o.id = cd.don_hang_id
+            JOIN 
+                trang_thais t ON o.trang_thai_id = t.id
+            WHERE 
+                o.id = ?
+        ";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$orderId]);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!empty($results)) {
+            return [
+                'order_id' => $results[0]['order_id'],
+                'order_date' => $results[0]['order_date'],
+                'total_amount' => $results[0]['total_amount'],
+                'pttt' => $results[0]['pttt'],
+                'ho_ten' => $results[0]['ho_ten'],
+                'sdt' => $results[0]['sdt'],
+                'dia_chi' => $results[0]['dia_chi'],
+                'status' => $results[0]['status'],
+                'products' => array_map(function ($row) {
+                    return [
+                        'product_name' => $row['product_name'],
+                        'quantity' => $row['quantity']
+                    ];
+                }, $results)
+            ];
+        }
+
+        return null; // Không tìm thấy
+    }
+
+
 
 
 
@@ -395,15 +453,34 @@ class Cart
     {
         // Truy vấn lấy danh sách đơn hàng của người dùng
         $sql = "
-    SELECT o.id AS order_id, o.ngay_tao AS order_date, o.tong_tien AS total_amount, t.ten_trang_thai AS status, 
-           p.ten_san_pham AS product_name, cd.so_luong AS quantity, cd.gia_ban AS price
-    FROM don_hangs o
-    JOIN chi_tiet_don_hangs cd ON o.id = cd.don_hang_id
-    JOIN san_phams p ON cd.ten_san_pham = p.ten_san_pham
-    JOIN trang_thais t ON o.trang_thai_id = t.id
-    WHERE o.nguoi_dung_id = ?
-    ORDER BY o.ngay_tao DESC
-";
+            SELECT 
+                o.id AS order_id, 
+                o.ngay_tao AS order_date, 
+                o.tong_tien AS total_amount, 
+                o.phuong_thuc_thanh_toan,
+                o.ho_ten,
+                o.so_dien_thoai,
+                t.ten_trang_thai AS status, 
+                p.ten_san_pham AS product_name, 
+                cd.so_luong AS quantity, 
+                cd.gia_ban AS price
+            FROM 
+                don_hangs o
+            JOIN 
+                chi_tiet_don_hangs cd 
+                ON o.id = cd.don_hang_id
+            JOIN 
+                san_phams p 
+                ON cd.ten_san_pham = p.ten_san_pham
+            JOIN 
+                trang_thais t 
+                ON o.trang_thai_id = t.id
+            WHERE 
+                o.nguoi_dung_id = ?
+            ORDER BY 
+                o.ngay_tao DESC
+        ";
+
 
 
         // Chuẩn bị và thực thi truy vấn
@@ -413,6 +490,20 @@ class Cart
         // Lấy kết quả trả về dưới dạng mảng
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    // Phương thức hủy đơn hàng
+    public function cancelOrder($orderId)
+    {
+        // Giả sử có bảng 'don_hangs' và trường 'trang_thai' để cập nhật trạng thái đơn hàng
+      
+
+        // Thực hiện câu lệnh SQL để cập nhật trạng thái đơn hàng thành 'Đã hủy'
+        $query = "UPDATE don_hangs SET trang_thai_id = 6 WHERE id = :order_id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':order_id', $orderId, PDO::PARAM_INT);
+
+        return $stmt->execute();  // Trả về true nếu thành công, false nếu thất bại
+    }
+
 
 
 

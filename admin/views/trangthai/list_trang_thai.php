@@ -70,21 +70,23 @@
                                                         <?php foreach ($donHangs as $index => $donHang): ?>
                                                             <tr>
                                                                 <!-- <td class="fw-medium"><?= $index + 1 ?></td> -->
-                                                                <td>#<?= $donHang['id'] ?></td>
+                                                                <td>P<?= $donHang['id'] ?></td>
                                                                 <td><?= $donHang['ho_ten'] ?></td>
                                                                 <td><?= number_format($donHang['tong_tien'], 0, ',', '.') ?> VNĐ</td>
                                                                 <td>
                                                                     <form action="?act=updateOrderStatus" method="POST">
                                                                         <input type="hidden" name="order_id" value="<?= $donHang['id'] ?>" />
                                                                         <select name="status_id" onchange="this.form.submit()" class="form-select form-select-sm">
-                                                                            <option value="1" <?= ($donHang['trang_thai_id'] == 1) ? 'selected' : '' ?>>Chờ xác nhận</option>
-                                                                            <option value="2" <?= ($donHang['trang_thai_id'] == 2) ? 'selected' : '' ?>>Đã xác nhận</option>
-                                                                            <option value="3" <?= ($donHang['trang_thai_id'] == 3) ? 'selected' : '' ?>>Đang chuẩn bị hàng</option>
-                                                                            <option value="4" <?= ($donHang['trang_thai_id'] == 4) ? 'selected' : '' ?>>Đang vận chuyển</option>
-                                                                            <option value="5" <?= ($donHang['trang_thai_id'] == 5) ? 'selected' : '' ?>>Đã hủy</option>
+                                                                            <option value="1" <?= ($donHang['trang_thai_id'] == 1) ? 'selected' : '' ?> <?= ($donHang['trang_thai_id'] > 1) ? 'disabled' : '' ?>>Chờ xác nhận</option>
+                                                                            <option value="2" <?= ($donHang['trang_thai_id'] == 2) ? 'selected' : '' ?> <?= ($donHang['trang_thai_id'] > 2) ? 'disabled' : '' ?>>Đã xác nhận</option>
+                                                                            <option value="3" <?= ($donHang['trang_thai_id'] == 3) ? 'selected' : '' ?> <?= ($donHang['trang_thai_id'] > 3) ? 'disabled' : '' ?>>Đang chuẩn bị hàng</option>
+                                                                            <option value="4" <?= ($donHang['trang_thai_id'] == 4) ? 'selected' : '' ?> <?= ($donHang['trang_thai_id'] > 4) ? 'disabled' : '' ?>>Đang giao hàng</option>
+                                                                            <option value="5" <?= ($donHang['trang_thai_id'] == 5) ? 'selected' : '' ?> <?= ($donHang['trang_thai_id'] > 5) ? 'disabled' : '' ?>>Đã giao hàng</option>
+                                                                            <option value="6" <?= ($donHang['trang_thai_id'] == 6) ? 'selected' : '' ?> disabled>Đã hủy</option>
                                                                         </select>
                                                                     </form>
                                                                 </td>
+
 
                                                                 <td>
                                                                     <div class="hstack gap-3 flex-wrap">

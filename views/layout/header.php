@@ -66,7 +66,7 @@
                     <?php if (isset($_SESSION['email'])) { ?>
 
                         <a href="#">Account Info</a><br>
-                        <a href="./?act=my-oder">My Orders</a><br>
+                        <a href="./?act=my-order">My Orders</a><br>
                         <a href="./?act=logout">Logout</a>
 
                     <?php } else { ?>

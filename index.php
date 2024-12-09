@@ -41,8 +41,12 @@ match ($act) {
     'pay' => (new CartController)->showPaymentPage(),
     'process-payment' => (new CartController)->processPayment(),
     'payment-success' => (new CartController)->paymentSuccess(),
+    'cancel-order' => (new CartController)->cancelOrder(),
+    'get-order-details' => (new CartController)->getOrderDetails(),
 
-    'my-oder' => (new CartController())->showOrders(),
+
+
+    'my-order' => (new CartController())->showOrders(),
     // 'process-paymen' => (new CartController)->viewPay(),
 
     'about-us' => (new HomeController())->aboutUs(),

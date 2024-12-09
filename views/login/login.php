@@ -38,14 +38,15 @@
 
         <button type="submit" class="login-button" name="login">Login</button>
 
-        <div class="social-login">
+        <!-- <div class="social-login">
           <button type="button" class="facebook-login">Facebook</button>
           <a href="?act=dang-ki">
           <button type="button" class="google-login">Đăng kí </button>
           </a>
-        </div>
+        </div> -->
+        <br><br>
 
-        <a href="#" class="forgot-link">Forgot Password / Register</a>
+        <a href="#" class="forgot-link">You had account/Register</a>
       </form>
     </div>
   </main>

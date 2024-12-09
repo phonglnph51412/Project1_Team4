@@ -111,6 +111,42 @@ class CartController
             $so_luong = isset($_POST['so_luong']) && $_POST['so_luong'] > 0 ? (int)$_POST['so_luong'] : 1;
             $mau_sac = $_POST['selectedColor'] ?? null;
             $kich_thuoc = $_POST['selectedSize'] ?? null;
+            $soLuongTon = $_POST['stock'] ?? 0;
+
+            $response = ['success' => false, 'message' => ''];
+
+            $soLuongMua = $_POST['so_luong'];
+            $stock = $_POST['stock'];
+            $selectedColor = $_POST['selectedColor'];
+            $selectedSize = $_POST['selectedSize'];
+
+            if ($stock <= 0) {
+                $response['message'] = "Sản phẩm đã hết hàng. Vui lòng chọn sản phẩm khác.";
+                echo json_encode($response);
+                exit;
+            }
+
+            if (!$selectedColor) {
+                $response['message'] = "Vui lòng chọn màu sắc trước khi thêm vào giỏ hàng.";
+                echo json_encode($response);
+                exit;
+            }
+
+            if (!$selectedSize) {
+                $response['message'] = "Vui lòng chọn kích thước trước khi thêm vào giỏ hàng.";
+                echo json_encode($response);
+                exit;
+            }
+
+            if ($soLuongMua > $stock) {
+                $response['message'] = "Số lượng mua vượt quá số lượng tồn kho ($stock). Vui lòng giảm số lượng.";
+                echo json_encode($response);
+                exit;
+            }
+
+            
+
+            
 
             // Kiểm tra tính hợp lệ của dữ liệu
             if (!$productId || !$productName || !$price || !$hinh_anh) {
@@ -120,7 +156,7 @@ class CartController
 
             // Gọi Model để thêm sản phẩm vào giỏ hàng trong CSDL
             $cartModel = new Cart();
-            $cartModel->addProductToCart($userId, $productId, $so_luong);
+            $cartModel->addProductToCart($userId, $productId, $so_luong, $stock, $selectedColor, $selectedSize);
 
             // Cập nhật session giỏ hàng
             $productExists = false;
@@ -143,6 +179,13 @@ class CartController
                 ];
                 $_SESSION['gio_hang'][] = $item;
             }
+
+            // Xử lý thêm vào giỏ hàng
+            $response['success'] = true;
+            $response['message'] = "Thêm sản phẩm vào giỏ hàng thành công.";
+            echo json_encode($response);
+            exit;
+
 
             // Điều hướng về trang giỏ hàng
             header('Location: ./?act=my-cart');
@@ -271,7 +314,7 @@ class CartController
                 $paymentMethod,
                 1
             );
-        $orderId = $cartModel->createOrder($userId, $fullName, $phoneNumber, $address, $totalAmount, $paymentMethod, 1);
+        // $orderId = $cartModel->createOrder($userId, $fullName, $phoneNumber, $address, $totalAmount, $paymentMethod, 1);
 
 
 
@@ -282,63 +325,16 @@ class CartController
         }
 
         // Xóa giỏ hàng sau khi thanh toán thành công
-        $cartModel->clearCart($userId);
+        $cartModel->clearCart($userId); 
 
         // Chuyển hướng đến trang xác nhận
         header('Location: ./?act=payment-success');
     }
 
+    // Thanh toán thành công
     public function paymentSuccess(){
         require_once './views/cart/payment_success.php';
     }
-
-
-
-    // // Cập nhật số lượng sản phẩm
-    // public function updateCart()
-    // {
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         $cartItemId = $_POST['cart_item_id'];
-    //         $quantity = $_POST['so_luong'];
-
-    //         if ($cartItemId && $quantity > 0) {
-    //             $this->cartModel->updateCartItemQuantity($cartItemId, $quantity, $this->userId);
-
-    //             // Cập nhật tổng giỏ hàng sau khi thay đổi
-    //             $total = $this->cartModel->getCartTotal($this->userId);
-    //             echo json_encode([
-    //                 'success' => true,
-    //                 'message' => 'Cập nhật thành công.',
-    //                 'tong' => number_format($total, 0, '.', '.')
-    //             ]);
-    //         } else {
-    //             echo json_encode(['success' => false, 'message' => 'Dữ liệu không hợp lệ.']);
-    //         }
-    //         exit();
-    //     }
-    // }
-
-    // // Xóa sản phẩm khỏi giỏ hàng
-    // public function deleteProduct()
-    // {
-    //     if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['cart_item_id'])) {
-    //         $cartItemId = $_GET['cart_item_id'];
-
-    //         if ($cartItemId) {
-    //             $this->cartModel->deleteCartItem($cartItemId, $this->userId);
-
-    //             // Tính lại tổng giỏ hàng
-    //             $total = $this->cartModel->getCartTotal($this->userId);
-    //             echo json_encode([
-    //                 'success' => true,
-    //                 'message' => 'Sản phẩm đã được xoá.',
-    //                 'tong' => number_format($total, 0, '.', '.')
-    //             ]);
-    //         }
-    //         exit();
-    //     }
-    // }
-
 
     public function deleteProduct()
     {
@@ -396,6 +392,27 @@ class CartController
         }
     }
 
+    // Hàm huỷ đơn hàng
+    public function cancelOrder()
+    {
+        // Lấy order_id từ POST
+        $orderId = $_POST['order_id'] ?? null;
+
+        if ($orderId) {
+            $result = $this->cartModel->cancelOrder($orderId);
+            if ($result) {
+                // Chuyển hướng về trang danh sách đơn hàng sau khi hủy thành công
+                header('Location: ./?act=my-order');
+                exit();
+            } else {
+                echo "Không thể hủy đơn hàng. Vui lòng thử lại!";
+            }
+        } else {
+            echo "Không tìm thấy đơn hàng.";
+        }
+    }
+
+
 
 
     // Hàm hiển thị danh sách đơn hàng của người dùng
@@ -405,11 +422,32 @@ class CartController
         $userId = $_SESSION['user_id'];  // Giả sử bạn lưu user_id trong session sau khi đăng nhập
 
         // Lấy danh sách đơn hàng từ model
-        $orderModel = new Cart();
-        $orders = $orderModel->getOrdersByUserId($userId);
+     
+        $orders = $this->cartModel->getOrdersByUserId($userId);
+
+        // var_dump($orders);
 
         // Gọi view để hiển thị danh sách đơn hàng
         require_once './views/cart/my_orders.php';
+    }
+
+    public function getOrderDetails()
+    {
+        if (!isset($_GET['order_id'])) {
+            echo json_encode(['error' => 'Không tìm thấy mã đơn hàng.']);
+            return;
+        }
+
+        $orderId = intval($_GET['order_id']); // Lấy order_id từ query string
+        $orderDetails = $this->cartModel->getOrderDetailsById($orderId);
+
+        if (!$orderDetails) {
+            echo json_encode(['error' => 'Không tìm thấy chi tiết đơn hàng.']);
+        } else {
+            echo json_encode($orderDetails);
+        }
+       
+        
     }
 
 

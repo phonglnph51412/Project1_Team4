@@ -123,7 +123,7 @@ h1 {
 }
 
 .btn-confirm {
-    background-color: #8b96bb;
+    background-color: #434f74;
     color: #fff;
     padding: 15px 30px;
     font-size: 18px;
@@ -134,7 +134,7 @@ h1 {
 }
 
 .btn-confirm:hover {
-    background-color: #434f74;
+    background-color: #000080;
 }
 
 /* Các phần khác */

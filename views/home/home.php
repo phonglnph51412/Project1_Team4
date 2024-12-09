@@ -24,7 +24,7 @@
             <div class="hero-text">
                 <h1>Perfect Your Walk</h1>
                 <p>With 2022 wrapped up, it’s time we come <br> up with ideas to rock 2023! And how else <br> to kick-start the new year other than <br> looking at being a trend-setter?</p>
-                <a href="#" class="btn">Explore Now</a>
+                <a href="./?act=view-products" class="btn">Explore Now</a>
             </div>
             <div class="banner">
                 <div class="slideshow">

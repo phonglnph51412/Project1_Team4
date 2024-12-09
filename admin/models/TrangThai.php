@@ -25,21 +25,7 @@ class TrangThai
         }
     }
 
-    // Cập nhật trạng thái đơn hàng
-    // public function updateOrderStatus($orderId, $newStatus)
-    // {
-    //     try {
-    //         $sql = 'UPDATE don_hangs SET trang_thai = :trang_thai WHERE id = :id';
-    //         $stmt = $this->conn->prepare($sql);
-    //         $stmt->bindParam(':trang_thai', $newStatus);
-    //         $stmt->bindParam(':id', $orderId);
-    //         $stmt->execute();
-    //         return true;
-    //     } catch (PDOException $e) {
-    //         echo 'Lỗi: ' . $e->getMessage();
-    //         return false;
-    //     }
-    // }
+
     // // Cập nhật trạng thái đơn hàng
     public function updateOrderStatus($orderId, $statusId)
     {
@@ -50,14 +36,6 @@ class TrangThai
         return $stmt->execute();
     }
 
-    // Cập nhật trạng thái đơn hàng
-    // public function updateOrderStatus($orderId, $statusId)
-    // {
-    //     $sql = "UPDATE don_hangs SET trang_thai_id = :status_id WHERE id = :order_id";
-    //     $stmt = $this->db->prepare($sql);
-    //     $stmt->bindParam(':status_id', $statusId, PDO::PARAM_INT);
-    //     $stmt->bindParam(':order_id', $orderId, PDO::PARAM_INT);
-    //     return $stmt->execute();
-    // }
+
 
 }
