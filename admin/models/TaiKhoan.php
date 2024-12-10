@@ -246,7 +246,7 @@ class TaiKhoan{
     //sua quan tri 
 
     
-    public function uppdateData($id,$ho_ten, $email, $so_dien_thoai, $mat_khau, $trang_thai , $chuc_vu, $dia_chi,$avata, $ngay_sinh){
+    public function updateData($id,$ho_ten, $email, $so_dien_thoai, $mat_khau, $trang_thai , $chuc_vu, $dia_chi,$avata, $ngay_sinh){
         try{
             // var_dump($ho_ten, $so_dien_thoai, $email, $mat_khau, $dia_chi, $avata, $ngay_sinh, $chuc_vu, $trang_thai );
             // die();

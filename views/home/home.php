@@ -17,6 +17,7 @@
 <body>
     <?php require_once './views/layout/header.php'; ?>
     <div class="container">
+        <!-- <img src="./admin/uploads/1733803411wp13319801-angled-waves-wallpapers.jpg" alt=""> -->
 
 
         <!-- Hero Section -->
@@ -83,7 +84,7 @@
             <div class="featured-text">
                 <h3>Tuff Copa Pure</h3>
                 <p>Classic and modern styles combined for ultimate performance.</p>
-                <a href="#" class="btn">See More</a>
+                <a href="./?act=view-products" class="btn">See More</a>
             </div>
         </section>
 

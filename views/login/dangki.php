@@ -155,7 +155,7 @@
             <button type="submit" class="btn">Đăng Ký</button>
         </form>
         <div class="form-footer">
-            <p>Bạn đã có tài khoản? <a href="#">Đăng nhập</a></p>
+            <p>Bạn đã có tài khoản? <a href="./?act=login">Đăng nhập</a></p>
         </div>
     </div>
 </body>

@@ -96,7 +96,7 @@ class HomeController
 
             $this->modelHome->addtaiKhoan($ho_ten,$email, $ngay_sinh, $so_dien_thoai, $file_thumb, $mat_khau,$dia_chi, $trang_thai_id,$chuc_vu_id);
 
-            header("Location: ?act=/");
+            header("Location: ?act=/login");
         }
        
     }

@@ -7,7 +7,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Thêm danh mục  | NN Shop</title>
+    <title>Thêm danh mục | NN Shop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -30,7 +30,7 @@
 
         require_once "views/layouts/siderbar.php";
         ?>
-        
+
         <!-- Left Sidebar End -->
         <!-- Vertical Overlay-->
         <div class="vertical-overlay"></div>
@@ -42,8 +42,8 @@
 
             <div class="page-content">
                 <div class="container-fluid">
-                          <!-- start page title -->
-                          <div class="row">
+                    <!-- start page title -->
+                    <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
                                 <h4 class="mb-sm-0">Quản lý danh mục sản phẩm</h4>
@@ -63,56 +63,52 @@
                         <div class="col">
 
                             <div class="h-100">
-                            <div class="card">
-                                <div class="card-header align-items-center d-flex">
-                                    <h4 class="card-title mb-0 flex-grow-1"> Thêm danh mục</h4>
-                                    <div class="flex-shrink-0">
-                                   
-                                    </div>
-                                </div><!-- end card header -->
+                                <div class="card">
+                                    <div class="card-header align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1"> Thêm danh mục</h4>
+                                        <div class="flex-shrink-0">
 
-                                <div class="card-body">
-                                   
-                                    <div class="live-preview">
-                                        <form action="?act=them-danh-muc" method="POST">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="mb-3">
-                                                        <label for="citynameInput" class="form-label">Tên danh mục</label>
-                                                        <input type="text" class="form-control" placeholder="Nhập tên danh mục" name="ten_danh_muc">
-                                                        <span class="text-danger">
-                                                                <?= !empty($_SESSION['errors']['ten_danh_muc']) ? $_SESSION['errors']['ten_danh_muc'] : ''?>
-                                                        </span>
+                                        </div>
+                                    </div><!-- end card header -->
+
+                                    <div class="card-body">
+
+                                        <div class="live-preview">
+                                            <form action="?act=them-danh-muc" method="POST">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="citynameInput" class="form-label">Tên danh mục</label>
+                                                            <input type="text" class="form-control" placeholder="Nhập tên danh mục" name="ten_danh_muc">
+                                                            <span class="text-danger">
+                                                                <?= !empty($_SESSION['errors']['ten_danh_muc']) ? $_SESSION['errors']['ten_danh_muc'] : '' ?>
+                                                            </span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <!--end col-->
-                                                <div class="col-md-6">
-                                                    <div class="mb-3">
-                                                        <label for="ForminputState" class="form-label">Trạng thái</label>
-                                                        <select  class="form-select" name="trang_thai">
-                                                            <option selected disabled>Chọn trạng thái</option>
-                                                            <option value="1">hiển thị</option>
-                                                            <option value="2">không hiển thị</option>
-                                                        </select>
-                                                        <span class="text-danger">
-                                                                <?= !empty($_SESSION['errors']['trang_thai']) ? $_SESSION['errors']['trang_thai'] : ''?>
-                                                        </span>
+                                                    <!--end col-->
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="citynameInput" class="form-label">Mô tả</label>
+                                                            <input type="text" class="form-control" placeholder="Nhập mô tả" name="mo_ta">
+                                                            <span class="text-danger">
+                                                                <?= !empty($_SESSION['errors']['mo_ta']) ? $_SESSION['errors']['mo_ta'] : '' ?>
+                                                            </span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <!--end col-->
-                                                <div class="col-lg-12">
-                                                    <div class="text-center">
-                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                    <!--end col-->
+                                                    <div class="col-lg-12">
+                                                        <div class="text-center">
+                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                        </div>
                                                     </div>
+                                                    <!--end col-->
                                                 </div>
-                                                <!--end col-->
-                                            </div>
-                                            <!--end row-->
-                                        </form>
+                                                <!--end row-->
+                                            </form>
+                                        </div>
+
                                     </div>
-                                    
                                 </div>
-                            </div>
 
                             </div> <!-- end .h-100-->
 
@@ -134,7 +130,7 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="text-sm-end d-none d-sm-block">
-                                Design & Develop by Themesbrand
+                                Design & Develop by PRIME
                             </div>
                         </div>
                     </div>

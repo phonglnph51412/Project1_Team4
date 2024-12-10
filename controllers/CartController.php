@@ -145,7 +145,7 @@ class CartController
             }
 
             
-
+ 
             
 
             // Kiểm tra tính hợp lệ của dữ liệu
@@ -153,10 +153,11 @@ class CartController
                 echo "Dữ liệu không hợp lệ!";
                 exit;
             }
-
+// var_dump($userId, $productId, $so_luong, $stock, $selectedColor, $selectedSize); die();
             // Gọi Model để thêm sản phẩm vào giỏ hàng trong CSDL
             $cartModel = new Cart();
             $cartModel->addProductToCart($userId, $productId, $so_luong, $stock, $selectedColor, $selectedSize);
+            
 
             // Cập nhật session giỏ hàng
             $productExists = false;

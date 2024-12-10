@@ -31,17 +31,17 @@ class DanhMucController
         if ($_SERVER['REQUEST_METHOD']=='POST') {
             //lấy ra dữ liệu
             $ten_danh_muc = $_POST['ten_danh_muc'];
-            $trang_thai = $_POST['trang_thai'];
+            $mo_ta = $_POST['mo_ta'];
 
             //validate
             $errors = [];
             if (empty($ten_danh_muc)) {
-                $errors['ten_danh_muc'] = 'tên danh mục là bắt buộc';
+                $errors['ten_danh_muc'] = 'Tên danh mục là bắt buộc';
 
             }
 
-            if (empty($trang_thai)) {
-                $errors['trang_thai'] = 'trạng thái là bắt buộc';
+            if (empty($mo_ta)) {
+                $errors['mo_ta'] = 'Mô tả là bắt buộc';
                 
         }
           
@@ -49,7 +49,7 @@ class DanhMucController
         if (empty($errors)) {
             //nếu ko có lỗi thì thêm dữ liệu
             //thêm vào csdl
-            $this->modelDanhMuc->postData($ten_danh_muc,$trang_thai);
+            $this->modelDanhMuc->postData($ten_danh_muc,$mo_ta);
             unset($_SESSION['errors']);
             header('location: ?act=danh-mucs');
             exit();
@@ -82,7 +82,7 @@ class DanhMucController
                 $id = $_POST['id'];
                 $ten_danh_muc = $_POST['ten_danh_muc'];
                 $mo_ta = $_POST['mo_ta'];
-                $trang_thai = $_POST['trang_thai'];
+                
     
                 //validate
                 $errors = [];
@@ -95,16 +95,13 @@ class DanhMucController
     
                 }
     
-                if (empty($trang_thai)) {
-                    $errors['trang_thai'] = 'trạng thái là bắt buộc';
-                    
-            }
+                
     
             //thêm dữ liệu
             if (empty($errors)) {
                 //nếu ko có lỗi thì thêm dữ liệu
                 //thêm vào csdl
-                $this->modelDanhMuc->updateData($id,$ten_danh_muc,$trang_thai, $mo_ta);
+                $this->modelDanhMuc->updateData($id,$ten_danh_muc, $mo_ta);
                 unset($_SESSION['errors']);
                 header('location: ?act=danh-mucs');
                 exit();

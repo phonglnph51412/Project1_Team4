@@ -50,7 +50,7 @@
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
-                                        <li class="breadcrumb-item active">Tài khoản quản trị</li>
+                                        <li class="breadcrumb-item active">Thêm sản phẩm</li>
                                     </ol>
                                 </div>
 
@@ -154,7 +154,7 @@
                                                 </div>
                                                 <!--end col-->
 
-                                                <div class="col-md-6">
+                                                <!-- <div class="col-md-6">
                                                     <div class="mb-3">
                                                         <label for="emailidInput" class="form-label">Số lượng</label>
                                                         <input type="number" class="form-control"  name="so_luong">
@@ -163,7 +163,7 @@
 
                                                         </span>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <!--end col-->
 
                                                
@@ -182,13 +182,13 @@
                                                 <!--end col-->
 
                                                 
-                                                <div class="col-md-6">
+                                                <!-- <div class="col-md-6">
                                                     <div class="mb-3">
                                                         <label for="emailidInput" class="form-label">Lượt xem</label>
                                                         <input type="number" class="form-control"  name="luot_xem">
                                                        
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <!--end col-->
 
                                                 <div class="col-md-6">
@@ -208,7 +208,7 @@
                                                 </div>
                                                 <!--end col-->
 
-                                                <div class="col-md-6">
+                                                <!-- <div class="col-md-6">
                                                     <div class="mb-3">
                                                         <label for="emailidInput" class="form-label">Trạng thái</label>
                                                         <select class="form-select" name="trang_thai">
@@ -221,7 +221,7 @@
 
                                                         </span>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <!--end col-->
                                                 
                                                

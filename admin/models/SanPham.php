@@ -31,28 +31,27 @@ class SanPham
         }
     }
 
-    public function insertSanPham($ten_san_pham,$luot_xem, $gia_nhap,$gia_ban,$gia_khuyen_mai,$so_luong, $ngay_nhap,$danh_muc_id,$trang_thai, $mo_ta,$hinh_anh){
+    public function insertSanPham($ten_san_pham, $gia_nhap, $gia_ban, $gia_khuyen_mai, $ngay_nhap,$danh_muc_id, $mo_ta, $hinh_anh){
         try {
-            // var_dump($ten_san_pham,$luot_xem, $gia_nhap,$gia_ban,$gia_khuyen_mai,$so_luong, $ngay_nhap,$danh_muc_id,$trang_thai, $mo_ta,$,$hinh_anh);
+            // var_dump($ten_san_pham, $gia_nhap,$gia_ban,$gia_khuyen_mai,$so_luong, $ngay_nhap,$danh_muc_id, $mo_ta, $hinh_anh);
             // die();
            
-            $sql= 'INSERT INTO san_phams (ten_san_pham,luot_xem, gia_nhap,gia_ban,gia_khuyen_mai,so_luong, ngay_nhap,danh_muc_id,trang_thai, mo_ta,hinh_anh)
-            VALUES (:ten_san_pham,:luot_xem, :gia_nhap,:gia_ban,:gia_khuyen_mai,:so_luong,:ngay_nhap,:danh_muc_id,:trang_thai,:mo_ta,:hinh_anh)';
+            $sql= 'INSERT INTO san_phams (ten_san_pham, gia_nhap,gia_ban,gia_khuyen_mai, ngay_nhap,danh_muc_id, mo_ta,hinh_anh)
+            VALUES (:ten_san_pham, :gia_nhap,:gia_ban,:gia_khuyen_mai,:ngay_nhap,:danh_muc_id,:mo_ta,:hinh_anh)';
 
             $stmt = $this->conn->prepare($sql);
 
             //gán gtri vào các tham số
           
             $stmt->bindParam(':ten_san_pham', $ten_san_pham);
-            $stmt->bindParam(':luot_xem', $luot_xem);
+
             $stmt->bindParam(':gia_nhap', $gia_nhap);
             $stmt->bindParam(':gia_ban', $gia_ban);
             $stmt->bindParam(':gia_khuyen_mai', $gia_khuyen_mai);
-            $stmt->bindParam(':gia_khuyen_mai', $gia_khuyen_mai);
-            $stmt->bindParam(':so_luong', $so_luong);
+    
             $stmt->bindParam(':ngay_nhap', $ngay_nhap);
             $stmt->bindParam(':danh_muc_id', $danh_muc_id);
-            $stmt->bindParam(':trang_thai', $trang_thai);
+
             $stmt->bindParam(':mo_ta', $mo_ta);
           
             $stmt->bindParam(':hinh_anh', $hinh_anh);
@@ -105,21 +104,21 @@ class SanPham
                                     $gia_nhap,
                                     $gia_ban,
                                     $gia_khuyen_mai,
-                                    $so_luong,
+                                    // $so_luong,
                                     $ngay_nhap,
                                     $danh_muc_id,
-                                    $trang_thai,
+                     
                                     $mo_ta,
                                    
                                     $hinh_anh
                                     )     {
             try {
-                // var_dump($ten_san_pham,$luot_xem, $gia_nhap,$gia_ban,$gia_khuyen_mai,$so_luong, $ngay_nhap,$danh_muc_id,$trang_thai, $mo_ta,$,$hinh_anh);
+                // var_dump($ten_san_pham,$luot_xem, $gia_nhap,$gia_ban,$gia_khuyen_mai,$so_luong, $ngay_nhap,$danh_muc_id, $mo_ta,$,$hinh_anh);
                 // die();
                
                 $sql= 'UPDATE san_phams SET ten_san_pham = :ten_san_pham, gia_nhap= :gia_nhap,
-                gia_ban = :gia_ban,gia_khuyen_mai = :gia_khuyen_mai,so_luong = :so_luong, ngay_nhap = :ngay_nhap,
-                danh_muc_id = :danh_muc_id,trang_thai = :trang_thai, mo_ta = :mo_ta,hinh_anh = :hinh_anh
+                gia_ban = :gia_ban,gia_khuyen_mai = :gia_khuyen_mai, ngay_nhap = :ngay_nhap,
+                danh_muc_id = :danh_muc_id, mo_ta = :mo_ta,hinh_anh = :hinh_anh
                 WHERE id= :id';
                 
                 $stmt = $this->conn->prepare($sql);
@@ -133,10 +132,10 @@ class SanPham
                 $stmt->bindParam(':gia_ban', $gia_ban);
                
                 $stmt->bindParam(':gia_khuyen_mai', $gia_khuyen_mai);
-                $stmt->bindParam(':so_luong', $so_luong);
+                // $stmt->bindParam(':so_luong', $so_luong);
                 $stmt->bindParam(':ngay_nhap', $ngay_nhap);
                 $stmt->bindParam(':danh_muc_id', $danh_muc_id);
-                $stmt->bindParam(':trang_thai', $trang_thai);
+
                 $stmt->bindParam(':mo_ta', $mo_ta);
               
                 $stmt->bindParam(':hinh_anh', $hinh_anh);

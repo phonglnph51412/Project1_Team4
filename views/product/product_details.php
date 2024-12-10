@@ -10,7 +10,7 @@
 
 <body>
 
-    <?php 
+    <?php
     // var_dump($productDetails);
     require_once './views/layout/header.php'; ?>
 
@@ -142,7 +142,7 @@
             document.getElementById('stockInput').value = currentStock;
         }
 
-       
+
 
         document.getElementById('addToCartForm').addEventListener('submit', function(e) {
             e.preventDefault(); // Ngăn form gửi đi theo cách mặc định
@@ -167,7 +167,9 @@
                 })
                 .catch(error => {
                     console.error("Đã xảy ra lỗi:", error);
-                    alert("Đã xảy ra lỗi khi thêm sản phẩm vào giỏ hàng. Vui lòng thử lại.");
+                    alert("Bạn chưa đăng nhập!");
+                    window.location.href = "./?act=login"
+                    // alert("Đã xảy ra lỗi khi thêm sản phẩm vào giỏ hàng. Vui lòng thử lại.");
                 });
         });
     </script>

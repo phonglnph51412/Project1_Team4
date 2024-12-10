@@ -51,7 +51,7 @@ match ($act) {
 
     'about-us' => (new HomeController())->aboutUs(),
     'contact' => (new HomeController())->contact(),
-    'dang-ki' => (new HomeController())->dangki(),
+    'register' => (new HomeController())->dangki(),
     'xu-li-dang-ki' => (new HomeController())->xldangki(),
     
 

@@ -65,7 +65,7 @@ class Cart
         $query = "SELECT id FROM gio_hangs WHERE nguoi_dung_id = ?";
         $stmt = $this->db->prepare($query);
         $stmt->execute([$userId]);
-        $cart = $stmt->fetch();
+        $cart = $stmt->fetch(); 
 
         // Nếu chưa có giỏ hàng, tạo mới
         if (!$cart) { 

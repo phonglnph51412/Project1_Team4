@@ -26,7 +26,7 @@
                     const stockItem = document.createElement('li');
                     stockItem.textContent = `Số lượng: ${detail.so_luong}`;
                     stockList.appendChild(stockItem);
-                    foundStock = true; // Đã tìm thấy kết quả, cập nhật flag
+                    foundStock = true; // Đã tìm thấy kết quả, cập nhật flag 
                 }
             });
 

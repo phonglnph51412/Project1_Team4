@@ -65,7 +65,7 @@
                             <div class="h-100">
                             <div class="card">
                                 <div class="card-header align-items-center d-flex">
-                                    <h4 class="card-title mb-0 flex-grow-1"> cập nhật danh mục</h4>
+                                    <h4 class="card-title mb-0 flex-grow-1"> Cập nhật danh mục</h4>
                                     <div class="flex-shrink-0">
                                    
                                     </div>
@@ -91,7 +91,7 @@
 
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="citynameInput" class="form-label">Mo ta</label>
+                                                        <label for="citynameInput" class="form-label">Mô tả</label>
                                                         <input type="text" class="form-control" placeholder="Nhập mo ta" name="mo_ta" value="<?=$danhMuc['mo_ta']?>">
                                                         <span class="text-danger">
                                                                 <?= !empty($_SESSION['errors']['mo_ta']) ? $_SESSION['errors']['mo_ta'] : ''?>
@@ -99,7 +99,7 @@
                                                     </div>
                                                 </div>
                                                 <!--end col-->
-                                                <div class="col-md-6">
+                                                <!-- <div class="col-md-6">
                                                     <div class="mb-3">
                                                         <label for="ForminputState" class="form-label">Trạng thái</label>
                                                         <select  class="form-select" name="trang_thai">
@@ -111,7 +111,7 @@
                                                                 <?= !empty($_SESSION['errors']['trang_thai']) ? $_SESSION['errors']['trang_thai'] : ''?>
                                                         </span>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <!--end col-->
                                                 <div class="col-lg-12">
                                                     <div class="text-center">

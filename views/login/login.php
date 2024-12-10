@@ -46,7 +46,7 @@
         </div> -->
         <br><br>
 
-        <a href="#" class="forgot-link">You had account/Register</a>
+        <a href="./?act=register" class="forgot-link">Register</a>
       </form>
     </div>
   </main>

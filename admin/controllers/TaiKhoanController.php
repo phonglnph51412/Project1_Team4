@@ -70,9 +70,9 @@ class TaiKhoanController{
             if (empty($ngay_sinh)){
                 $errors['ngay_sinh'] = 'ngay sinh la bat buoc';
             }
-            if (empty($chuc_vu)){
-                $errors['chuc_vu'] = 'chuc vu la bat buoc';
-            }
+            // if (empty($chuc_vu)){
+            //     $errors['chuc_vu'] = 'chuc vu la bat buoc';
+            // }
             if (empty($mat_khau)){
                 $errors['mat_khau'] = 'mat khau la bat buoc';
             }
@@ -85,6 +85,8 @@ class TaiKhoanController{
                 // var_dump($password);die;
                 // Khai báo chức vụ
                 // $chuc_vu_id = 1;
+
+                // var_dump($ho_ten, $so_dien_thoai, $email, $mat_khau, $dia_chi, $file_thumb, $ngay_sinh, $chuc_vu, $trang_thai);die();
 
                 $this->modelTaiKhoan->posData($ho_ten, $so_dien_thoai, $email, $mat_khau, $dia_chi, $file_thumb, $ngay_sinh, $chuc_vu, $trang_thai );
                 
@@ -187,8 +189,8 @@ class TaiKhoanController{
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             $id = $_POST['id'];
 
-            // $QuanTri = $this->modelTaiKhoan->getdetailQuanTri($id);
-            // $old_file = $QuanTri['avata'];
+            $QuanTri = $this->modelTaiKhoan->getDeTailData($id);
+            $old_file = $QuanTri['avata'];
 
             $ho_ten = $_POST['ho_ten'];
             $so_dien_thoai = $_POST['so_dien_thoai'];
@@ -215,21 +217,21 @@ class TaiKhoanController{
             }
              
            
-            // if(isset($avata) && $avata['error'] == UPLOAD_ERR_OK){
-            //     $new_file = uploadFile($avata, './uploads/');
+            if(isset($avata) && $avata['error'] == UPLOAD_ERR_OK){
+                $new_file = uploadFile($avata, './admin/uploads/');
 
-            //     if(!empty($old_file)){
-            //         deleteFile($old_file);
-            //     }
+                if(!empty($old_file)){
+                    deleteFile($old_file);
+                }
 
-            // }else{
-            //     $new_file = $old_file;
-            // }
+            }else{
+                $new_file = $old_file;
+            }
 
             if (empty($errors)) {
-                
 
-                $this->modelTaiKhoan->uppdateData($id,$ho_ten, $so_dien_thoai, $email, $mat_khau, $dia_chi,$avata, $ngay_sinh, $chuc_vu, $trang_thai );
+                // var_dump($id, $ho_ten, $email, $so_dien_thoai, $mat_khau, $trang_thai, $chuc_vu, $dia_chi, $new_file, $ngay_sinh); die();
+                $this->modelTaiKhoan->updateData($id, $ho_ten, $email, $so_dien_thoai, $mat_khau, $trang_thai, $chuc_vu, $dia_chi, $new_file, $ngay_sinh);
                 
                 unset($_SESSION['errors']);
                 header('Location: ?act=tai-khoans');

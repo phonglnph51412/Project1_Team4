@@ -28,17 +28,17 @@ class DanhMuc
     }
 
     //thêm dữ liệu mới vafp csdl
-    public function postData($ten_danh_muc,$trang_thai){
+    public function postData($ten_danh_muc,$mo_ta){
         try {
            
-            $sql= 'INSERT INTO danh_mucs (ten_danh_muc,trang_thai)
-            VALUES (:ten_danh_muc,:trang_thai)';
+            $sql= 'INSERT INTO danh_mucs (ten_danh_muc,mo_ta)
+            VALUES (:ten_danh_muc,:mo_ta)';
 
             $stmt = $this->conn->prepare($sql);
 
             //gán gtri vào các tham số
             $stmt->bindParam(':ten_danh_muc', $ten_danh_muc);
-            $stmt->bindParam(':trang_thai', $trang_thai);
+            $stmt->bindParam(':mo_ta', $mo_ta);
             $stmt->execute();
 
             return true;
@@ -67,19 +67,19 @@ class DanhMuc
         }
 
          //cập nhật dữ liệu mới vafp csdl
-    public function updateData($id,$ten_danh_muc,$trang_thai,$mo_ta){
+    public function updateData($id, $ten_danh_muc, $mo_ta){
         try {
-            // var_dump($id,$ten_danh_muc,$trang_thai,$mo_ta);
+            // var_dump($id,$ten_danh_muc,$mo_ta);
             // die();
            
-            $sql= 'UPDATE danh_mucs SET ten_danh_muc=:ten_danh_muc, trang_thai = :trang_thai, mo_ta = :mo_ta WHERE id=:id';
+            $sql= 'UPDATE danh_mucs SET ten_danh_muc=:ten_danh_muc, mo_ta = :mo_ta WHERE id=:id';
 
             $stmt = $this->conn->prepare($sql);
 
             //gán gtri vào các tham số
             $stmt->bindParam(':id', $id);
             $stmt->bindParam(':ten_danh_muc', $ten_danh_muc);
-            $stmt->bindParam(':trang_thai', $trang_thai);
+            
             $stmt->bindParam(':mo_ta', $mo_ta);
             $stmt->execute();
 

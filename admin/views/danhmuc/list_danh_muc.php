@@ -79,7 +79,7 @@
                                                         <th scope="col">STT</th>
                                                         <th scope="col">Tên danh mục</th>
                                                           <th scope="col">Mô tả</th>
-                                                        <th scope="col">Trạng thái</th>
+                                                        <!-- <th scope="col">Trạng thái</th> -->
                                                       
                                                         <th scope="col">Thao tác</th>
                                                     </tr>
@@ -90,7 +90,7 @@
                                                         <td class="fw-medium"><?= $index + 1 ?></td>
                                                         <td><?= $danhMuc['ten_danh_muc'] ?></td>
                                                         <td><?= $danhMuc['mo_ta'] ?></td>
-                                                        <td>
+                                                        <!-- <td>
                                                             <?php 
                                                             if($danhMuc['trang_thai']==1){?>
                                                                 <span class="badge bg-success">Hiển thị</span>
@@ -104,12 +104,12 @@
                                                             
                                                             ?>
                                                             
-                                                        </td>
+                                                        </td> -->
                                                         <td>
                                                                     <div class="hstack gap-3 flex-wrap">
                                                                         <a href="?act=form-sua-danh-muc&danh_muc_id=<?= $danhMuc['id'] ?>" class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
                                                                         <form action="?act=xoa-danh-muc" method="POST"
-                                                                        onsubmit="return confirm('Bạn co đồng ý không')">
+                                                                        onsubmit="return confirm('Xác nhận xóa?')">
                                                                         <input type="hidden" name="danh_muc_id" value="<?= $danhMuc['id'] ?>">
                                                                         <button type="submit" class="link-danger fs-15" style="border: none; background: none;">
                                                                             <i class="ri-delete-bin-line"></i>
@@ -147,7 +147,7 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="text-sm-end d-none d-sm-block">
-                                Design & Develop by Themesbrand
+                                Design & Develop by PRIME
                             </div>
                         </div>
                     </div>
